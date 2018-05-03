@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/common_240"
+    android:layout_height="@dimen/common_220"
+    android:background="@drawable/me_radius_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_14"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="正在连接"
+            android:textColor="@color/color_33"
+            android:textSize="@dimen/text_16" />
+
+        <ImageView
+            android:id="@+id/img_dismiss_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_14"
+            android:background="@mipmap/close_dialog"
+
+            />
+    </RelativeLayout>
+
+    <wtwd.com.superapp.widget.RingProgressView
+        android:id="@+id/ring_circle"
+        android:layout_width="@dimen/common_66"
+        android:layout_height="@dimen/common_66"
+        android:layout_marginTop="@dimen/common_26"
+        app:progress_color="@color/blue_btn_press"
+        app:progress_width="@dimen/common_14"
+        app:ring_color="@color/color_66"
+        app:text_color="@color/color_33"
+        app:top_text=" "
+        app:bottom_unit_text=" "
+
+        />
+
+    <Button
+        android:id="@+id/btn_connect_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_36"
+        android:layout_marginLeft="@dimen/common_58"
+        android:layout_marginRight="@dimen/common_58"
+        android:layout_marginTop="@dimen/common_44"
+        android:background="@drawable/btn_wifi_selector"
+        android:gravity="center"
+        android:text="去连接"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_12"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_22"
+        android:gravity="center"
+        android:text="路由器、手机、设备尽量靠近"
+        android:textColor="@color/color_66"
+        android:textSize="@dimen/text_12" />
+
+</LinearLayout>

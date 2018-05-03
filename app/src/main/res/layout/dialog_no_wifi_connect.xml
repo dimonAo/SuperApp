@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/common_240"
+    android:layout_height="@dimen/common_220"
+    android:background="@drawable/me_radius_bg"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_18">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="请连接Wifi"
+            android:textColor="@color/color_33"
+            android:textSize="@dimen/text_16" />
+
+        <ImageView
+            android:id="@+id/img_dismiss_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_14"
+            android:background="@mipmap/close_dialog" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_44"
+        android:gravity="center"
+        android:text="@string/hiflying_config_wifi"
+        android:textColor="@color/color_66"
+        android:textSize="@dimen/text_12"
+
+        />
+
+    <Button
+        android:id="@+id/btn_connect_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_36"
+        android:layout_marginLeft="@dimen/common_58"
+        android:layout_marginRight="@dimen/common_58"
+        android:layout_marginTop="@dimen/common_44"
+        android:background="@drawable/btn_wifi_selector"
+        android:gravity="center"
+        android:text="去连接"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_12"
+
+        />
+
+</LinearLayout>

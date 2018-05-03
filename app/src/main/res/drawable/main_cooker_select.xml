@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@mipmap/cooker_off_line" android:state_selected="false"/>
+    <item android:drawable="@mipmap/cooker_on_line" android:state_selected="true"/>
+
+
+</selector>

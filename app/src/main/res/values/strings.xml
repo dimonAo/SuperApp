@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SuperApp</string>
+
+    <string name="hiflying_smartlinker_password"> </string>
+    <string name="hiflying_smartlinker_ssid"> </string>
+    <string name="hiflying_smartlinker_start">开始</string>
+    <string name="hiflying_smartlinker_waiting">请稍后&#8230;</string>
+    <string name="hiflying_smartlinker_timeout">配置超时!</string>
+    <string name="hiflying_smartlinker_completed">SmartLink 完成</string>
+    <string name="hiflying_smartlinker_new_module_found" formatted="false">发现新模块: Mac-%s Ip-%s</string>
+    <string name="hiflying_smartlinker_no_wifi_connectivity">没有Wifi连接</string>
+    <string name="hiflying_config_wifi">手机没有连接Wifi\n无法为设备配网</string>
+    <string name="connect_wifi_success">连接成功!   开启您的智能生活~</string>
+</resources>

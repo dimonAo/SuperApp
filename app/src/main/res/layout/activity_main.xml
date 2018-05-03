@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="wtwd.com.superapp.activity.MainActivity">
+
+    <LinearLayout
+        android:id="@+id/lin_bottom_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_46"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_main_family"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:drawableTop="@drawable/main_family_selected"
+            android:padding="@dimen/common_6"
+            android:text="家庭"
+            android:textSize="@dimen/text_10" />
+
+        <Button
+            android:id="@+id/btn_main_home"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:drawableTop="@drawable/main_home_selected"
+            android:padding="@dimen/common_6"
+            android:text="房间"
+            android:textSize="@dimen/text_10" />
+
+        <Button
+            android:id="@+id/btn_main_me"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:drawableTop="@drawable/main_me_selected"
+            android:padding="@dimen/common_6"
+            android:text="我的"
+            android:textSize="@dimen/text_10" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/relative_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/lin_bottom_menu" />
+
+</RelativeLayout>
