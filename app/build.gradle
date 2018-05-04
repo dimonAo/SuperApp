@@ -47,4 +47,19 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation files('libs/hiflying-iots-android-smartlink-7.0.3.jar')
     implementation files('libs/xlink-wifi-official-sdk-v3-21546.jar')
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation files('libs/android-async-http-1.4.6.jar')
+    implementation 'org.apache.httpcomponents:httpcore:4.4.3'
+    implementation files('libs/xlink_common.jar')
+    implementation files('libs/xlink_core_sdk.jar')
+    implementation files('libs/xlink_restful.jar')
+    implementation files('libs/xlink_sdk.jar')
+    implementation files('libs/xlink_task_lib.jar')
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.legendmohe.maven:hellodaemon:1.1.5'
+    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
 }

@@ -14,6 +14,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -34,8 +35,21 @@ import com.hiflying.smartlink.SmartLinkedModule;
 import com.hiflying.smartlink.v7.MulticastSmartLinker;
 import com.hiflying.smartlink.v7.MulticastSmartLinkerActivity;
 
+import java.util.Queue;
+
+import cn.xlink.sdk.common.StringUtil;
+import cn.xlink.sdk.v5.listener.XLinkScanDeviceListener;
+import cn.xlink.sdk.v5.listener.XLinkTaskListener;
+import cn.xlink.sdk.v5.model.XDevice;
+import cn.xlink.sdk.v5.module.connection.XLinkScanDeviceTask;
+import cn.xlink.sdk.v5.module.main.XLinkErrorCode;
+import cn.xlink.sdk.v5.module.main.XLinkSDK;
+import cn.xlink.sdk.v5.module.subscription.XLinkAddDeviceTask;
 import wtwd.com.superapp.R;
 import wtwd.com.superapp.base.BaseActivity;
+import wtwd.com.superapp.entity.Device;
+import wtwd.com.superapp.manager.DeviceManager;
+import wtwd.com.superapp.util.Constant;
 import wtwd.com.superapp.util.DialogUtils;
 import wtwd.com.superapp.util.Utils;
 import wtwd.com.superapp.widget.RingProgressView;
@@ -50,7 +64,6 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
     private EditText editText_hiflying_smartlinker_password;
     private Button button_hiflying_smartlinker_start;
 
-    private Handler mHander = new Handler();
     private Dialog mConnectingDialog;
     private RingProgressView mRingProgressView;
 
@@ -231,11 +244,144 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
 
     }
 
+    private XLinkScanDeviceTask mScanTask;
+    private volatile boolean mScanning = false;
+    private static final String TAG = "AddDevicePresenter";
+    private boolean mSubscribing = false;
+    private XLinkAddDeviceTask mTask;
 
+    //扫描超时  SDK默认90秒
+    public static final int SEARCH_NEW_DEVICE_TIMEOUT = 30000;
+    //扫描间隔
+    public static final int SEARCH_NEW_DEVICE_INTERVAL = 1000;
+
+    /**
+     * 执行扫描设备, 在异步线程上执行。
+     */
+    void scan(String pid, final String mac) {
+        if (mScanning || StringUtil.isEmpty(pid)) {
+//            if (getView() != null) {
+//                getView().showScanningUncompleted();
+//            }
+            return;
+        }
+
+        mScanTask = XLinkScanDeviceTask.newBuilder()
+                .setTotalTimeout(SEARCH_NEW_DEVICE_TIMEOUT)// 设置超时，单位毫秒，默认90秒
+                .setProductIds(pid)
+//                .setRetryInterval(SEARCH_NEW_DEVICE_INTERVAL)// scan per 1 sec
+                .setScanDeviceListener(new XLinkScanDeviceListener() {// 设置搜索回调, **回调在主线程上执行**
+                    @Override
+                    public void onScanResult(XDevice xDevice) {
+                        // 同一设备仅会回调一次
+                        Log.e(TAG, "onGotDeviceByScan() called with: " + "xDevice = [" + xDevice + "]");
+                        if (xDevice != null) {
+                            if (mac.equals(xDevice.getMacAddress())) {
+
+                                //搜索完成，停止搜索
+//                                XLinkSDK.stopTask(mScanTask);
+
+                                Message msg = new Message();
+                                msg.what = 1;
+                                msg.obj = xDevice;
+                                mHandler.sendMessage(msg);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(XLinkErrorCode xLinkErrorCode) {
+
+                        Log.e(TAG, "xLinkErrorCode.name : " + xLinkErrorCode.name());
+                        Log.e(TAG, "xLinkErrorCode.getValue : " + xLinkErrorCode.getValue());
+
+                        if (xLinkErrorCode != XLinkErrorCode.ERROR_TASK_TIMEOUT) {
+
+                        } else {
+
+                        }
+                        mScanning = false;
+                    }
+
+                    @Override
+                    public void onStart() {
+                        //开始扫描
+                        mScanning = true;
+
+
+                    }
+
+                    @Override
+                    public void onComplete(Void aVoid) {
+                        mScanning = false;
+//                        getView().showCompleteScanning();
+
+
+                    }
+                }).build();
+        XLinkSDK.startTask(mScanTask);
+    }
+
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (1 == msg.what) {
+                XDevice xDevice = (XDevice) msg.obj;
+                addDevices(xDevice);
+            }
+        }
+    };
+
+    //添加设备
+    private void addDevices(final XDevice device) {
+        mTask = XLinkAddDeviceTask.newBuilder()
+                .setXDevice(device)
+                .setListener(new XLinkTaskListener<XDevice>() {// 设置本次订阅任务的回调
+
+                    @Override
+                    public void onError(XLinkErrorCode xLinkErrorCode) {
+                        Log.d(TAG, "subscribe device fail: " + device.getMacAddress() + " -> " + xLinkErrorCode);
+                        mSubscribing = false;
+                    }
+
+                    @Override
+                    public void onStart() {
+                        Log.d(TAG, "start subscribe device: " + device.getMacAddress());
+                        mSubscribing = true;
+                    }
+
+                    @Override
+                    public void onComplete(XDevice xDevice) {
+                        // 订阅成功
+                        Log.d(TAG, "subscribe device successfully: " + xDevice.getMacAddress());
+                        Device device = new Device(xDevice);
+                        DeviceManager.getInstance().addDevice(device);
+
+                        // 从添加队列里拿下一个设备进行添加操作
+                        mSubscribing = false;
+                    }
+                })
+                .build();
+        XLinkSDK.startTask(mTask);
+    }
+
+
+    /**
+     * 连接成功
+     *
+     * @param var1
+     */
     @Override
     public void onLinked(SmartLinkedModule var1) {
         Log.e("TAG", "onLinked");
+        Log.e("TAG", "var1.getMac() : " + var1.getMac());
+        scan(Constant.PRODUCTID, var1.getMac());
+
     }
+
 
     @Override
     public void onCompleted() {
@@ -247,7 +393,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
         }
 
         final Dialog mSuccessDialog = new Dialog(this, R.style.MyCommonDialog);
-        mHander.post(new Runnable() {
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
 
@@ -255,7 +401,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
             }
         });
 
-        mHander.postDelayed(new Runnable() {
+        mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mSuccessDialog.dismiss();
@@ -264,7 +410,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
 
         mIsConncting = false;
 
-        readyGo(MainActivity.class);
+//        readyGo(MainActivity.class);
 
     }
 
@@ -284,5 +430,6 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
     public ISmartLinker setupSmartLinker() {
         return MulticastSmartLinker.getInstance();
     }
+
 
 }
