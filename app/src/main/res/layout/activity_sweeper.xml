@@ -99,10 +99,10 @@
                 />
 
             <TextView
+                android:id="@+id/text_battery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_6"
-                android:text="83%"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_12" />
 
@@ -137,6 +137,46 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/btn_planned"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorWhite"
+                android:drawableTop="@drawable/select_planned"
+                android:paddingBottom="@dimen/common_12"
+                android:paddingTop="@dimen/common_12"
+                android:text="规划"
+                android:textSize="@dimen/text_10" />
+
+
+            <Button
+                android:id="@+id/btn_fix_point"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorWhite"
+                android:drawableTop="@drawable/select_fixed_point"
+                android:paddingBottom="@dimen/common_12"
+                android:paddingTop="@dimen/common_12"
+                android:text="定点"
+                android:textSize="@dimen/text_10" />
+
+            <Button
+                android:id="@+id/btn_side"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorWhite"
+                android:drawableTop="@drawable/select_side"
+                android:paddingBottom="@dimen/common_12"
+                android:paddingTop="@dimen/common_12"
+                android:text="沿边"
+                android:textSize="@dimen/text_10" />
+
+            <Button
                 android:id="@+id/btn_auto"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
@@ -146,50 +186,12 @@
                 android:drawableTop="@drawable/select_atuo_clear"
                 android:paddingBottom="@dimen/common_12"
                 android:paddingTop="@dimen/common_12"
-                android:text="自动"
+                android:text="单间"
                 android:textSize="@dimen/text_10" />
 
             <Button
-                android:id="@+id/btn_fix_point"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_fixed_point"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="定点"
-                android:textSize="@dimen/text_10"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
-                android:id="@+id/btn_side"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_side"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="沿边"
-                android:textSize="@dimen/text_10"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
-                android:id="@+id/btn_planned"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_planned"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="规划"
-                android:textSize="@dimen/text_10"
-                style="?android:attr/borderlessButtonStyle"/>
-
-            <Button
                 android:id="@+id/btn_mop"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -198,11 +200,11 @@
                 android:paddingBottom="@dimen/common_12"
                 android:paddingTop="@dimen/common_12"
                 android:text="拖地"
-                android:textSize="@dimen/text_10"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textSize="@dimen/text_10" />
 
             <Button
                 android:id="@+id/btn_recharge"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -211,8 +213,7 @@
                 android:paddingBottom="@dimen/common_12"
                 android:paddingTop="@dimen/common_12"
                 android:text="回充"
-                android:textSize="@dimen/text_10"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textSize="@dimen/text_10" />
 
         </LinearLayout>
 
@@ -248,6 +249,7 @@
 
             <Button
                 android:id="@+id/btn_close"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -256,11 +258,11 @@
                 android:paddingBottom="@dimen/common_10"
                 android:paddingTop="@dimen/common_10"
                 android:text="关闭"
-                android:textSize="@dimen/text_10"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textSize="@dimen/text_10" />
 
             <Button
                 android:id="@+id/btn_standard"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -269,11 +271,11 @@
                 android:paddingBottom="@dimen/common_10"
                 android:paddingTop="@dimen/common_10"
                 android:text="标准"
-                android:textSize="@dimen/text_10"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textSize="@dimen/text_10" />
 
             <Button
                 android:id="@+id/btn_strong"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -282,8 +284,7 @@
                 android:paddingBottom="@dimen/common_10"
                 android:paddingTop="@dimen/common_10"
                 android:text="强力"
-                android:textSize="@dimen/text_10"
-                style="?android:attr/borderlessButtonStyle"/>
+                android:textSize="@dimen/text_10" />
 
         </LinearLayout>
     </LinearLayout>

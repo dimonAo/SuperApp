@@ -1,5 +1,6 @@
 package wtwd.com.superapp.fragment;
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
@@ -177,7 +178,7 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
         lin_add = (LinearLayout) mView.findViewById(R.id.lin_add);
 
         recycler_device = (RecyclerView) mView.findViewById(R.id.recycler_device);
-        mAdapter = new MainFamilyAdapter(R.layout.item_main_family_device_display, null);
+        mAdapter = new MainFamilyAdapter(R.layout.item_main_family_device_display, mDeviceEntirys);
 
         recycler_device.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         DividerItemDecoration mItem = new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL);
@@ -194,14 +195,17 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                readyGo(SweeperActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("device", mDeviceEntirys.get(position).getXDevice().getMacAddress());
+                readyGo(SweeperActivity.class, bundle);
             }
         });
 
         lin_add.setOnClickListener(this);
 
 //        loginUser("aowending@waterworld.com.cn", "Wtwd123456");
-        login(Constant.PREF_KEY_COM_ID, "", "aowending@waterworld.com.cn", "Wtwd123456");
+        login(Constant.PREF_KEY_COM_ID, "", "zxiaobin@waterworld.com.cn", "Wtwd123456");
 
     }
 
@@ -271,10 +275,10 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
             public void onComplete(List<XDevice> xDevices) {
                 //刷新成功
 //                refreshAdapter();
-
+                mDeviceEntirys.clear();
                 Log.e("TAG", "xDevices size : " + xDevices.size());
-                mAdapter.getData().addAll(DeviceManager.getInstance().getAllDevices());
-
+                mDeviceEntirys.addAll(DeviceManager.getInstance().getAllDevices());
+                mAdapter.notifyDataSetChanged();
 
             }
         });
@@ -285,5 +289,6 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
     public void onResume() {
         super.onResume();
         syncDeviceListTask();
+
     }
 }

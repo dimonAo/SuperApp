@@ -32,6 +32,8 @@ import wtwd.com.superapp.R;
 import wtwd.com.superapp.activity.MainActivity;
 import wtwd.com.superapp.base.BaseActivity;
 import wtwd.com.superapp.entity.Device;
+import wtwd.com.superapp.eventbus.DataPointUpdateEvent;
+import wtwd.com.superapp.eventbus.UpdateListEvent;
 import wtwd.com.superapp.manager.DeviceManager;
 import wtwd.com.superapp.manager.UserManager;
 
@@ -129,16 +131,16 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
     }
 
     private void handleDeviceShareNotify(EventNotify eventNotify) {
-//        final EventNotifyHelper.DeviceShareNotify notify = EventNotifyHelper.parseDeviceShareNotify(eventNotify.payload);
-//        Log.d(TAG, "handleDeviceShareNotify: " + notify);
-//
-//        Context context = mCurrentBaseActivity.get();
-//        if (mCurrentBaseActivity.get() == null) {
-//            return;
-//        }
-//
-//        switch (notify.type) {
-//            case EventNotifyHelper.DeviceShareNotify.TYPE_RECV_SHARE: //收到新的分享
+        final EventNotifyHelper.DeviceShareNotify notify = EventNotifyHelper.parseDeviceShareNotify(eventNotify.payload);
+        Log.d(TAG, "handleDeviceShareNotify: " + notify);
+
+        Context context = mCurrentBaseActivity.get();
+        if (mCurrentBaseActivity.get() == null) {
+            return;
+        }
+
+        switch (notify.type) {
+            case EventNotifyHelper.DeviceShareNotify.TYPE_RECV_SHARE: //收到新的分享
 //                mCurrentBaseActivity.get().showConfirmDialog(
 //                        context.getString(R.string.prompt_title),
 //                        context.getString(R.string.prompt_handle_share) + " ：" + notify.invite_code,
@@ -157,40 +159,40 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
 //                            }
 //                        }
 //                );
-//                break;
-//            case EventNotifyHelper.DeviceShareNotify.TYPE_ACCEPT_SHARE: // 发出去的分享被接受
+                break;
+            case EventNotifyHelper.DeviceShareNotify.TYPE_ACCEPT_SHARE: // 发出去的分享被接受
 //                mCurrentBaseActivity.get().showPromptDialog(
 //                        context.getString(R.string.prompt_title),
 //                        context.getString(R.string.share_notify_accept) + " ：" + notify.device_id
 //                );
-//                break;
-//            case EventNotifyHelper.DeviceShareNotify.TYPE_CANCEL_SHARE: // 原有的分享被取消
+                break;
+            case EventNotifyHelper.DeviceShareNotify.TYPE_CANCEL_SHARE: // 原有的分享被取消
 //                mCurrentBaseActivity.get().showPromptDialog(
 //                        context.getString(R.string.prompt_title),
 //                        context.getString(R.string.share_notify_cancel) + " ：" + notify.device_id
 //                );
-//                break;
-//            case EventNotifyHelper.DeviceShareNotify.TYPE_DENY_SHARE: // 发出去的分享被拒绝
+                break;
+            case EventNotifyHelper.DeviceShareNotify.TYPE_DENY_SHARE: // 发出去的分享被拒绝
 //                mCurrentBaseActivity.get().showPromptDialog(
 //                        context.getString(R.string.prompt_title),
 //                        context.getString(R.string.share_notify_deny) + " ：" + notify.device_id
 //                );
-//                break;
-//        }
+                break;
+        }
 
 
     }
 
     private void doDenyShare(EventNotifyHelper.DeviceShareNotify notify) {
-//        XLinkHandleShareDeviceTask task = XLinkHandleShareDeviceTask.newBuilder()
-//                .setAction(XLinkHandleShareDeviceTask.Action.DENY)
-//                .setInviteCode(notify.invite_code)
-//                .setUid(UserManager.getInstance().getUid())
-//                .setListener(new XLinkTaskListener<String>() {
-//                    @Override
-//                    public void onError(XLinkErrorCode xLinkErrorCode) {
-//                        XLog.d(TAG, "XLinkHandleShareDeviceTask onError() called with: " + "xLinkErrorCode = [" + xLinkErrorCode + "]");
-//                        Context context = mCurrentBaseActivity.get();
+        XLinkHandleShareDeviceTask task = XLinkHandleShareDeviceTask.newBuilder()
+                .setAction(XLinkHandleShareDeviceTask.Action.DENY)
+                .setInviteCode(notify.invite_code)
+                .setUid(UserManager.getInstance().getUid())
+                .setListener(new XLinkTaskListener<String>() {
+                    @Override
+                    public void onError(XLinkErrorCode xLinkErrorCode) {
+                        XLog.d(TAG, "XLinkHandleShareDeviceTask onError() called with: " + "xLinkErrorCode = [" + xLinkErrorCode + "]");
+                        Context context = mCurrentBaseActivity.get();
 //                        if (mCurrentBaseActivity.get() != null) {
 //                            mCurrentBaseActivity.get().showPromptDialog(
 //                                    context.getString(R.string.prompt_title),
@@ -198,39 +200,39 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
 //
 //                            );
 //                        }
-//                    }
-//
-//                    @Override
-//                    public void onStart() {
-//                        XLog.d(TAG, "XLinkHandleShareDeviceTask onStart()");
-//                    }
-//
-//                    @Override
-//                    public void onComplete(String s) {
-//                        XLog.d(TAG, "XLinkHandleShareDeviceTask onComplete() called with: " + "s = [" + s + "]");
-//                        Context context = mCurrentBaseActivity.get();
+                    }
+
+                    @Override
+                    public void onStart() {
+                        XLog.d(TAG, "XLinkHandleShareDeviceTask onStart()");
+                    }
+
+                    @Override
+                    public void onComplete(String s) {
+                        XLog.d(TAG, "XLinkHandleShareDeviceTask onComplete() called with: " + "s = [" + s + "]");
+                        Context context = mCurrentBaseActivity.get();
 //                        if (mCurrentBaseActivity.get() != null) {
 //                            mCurrentBaseActivity.get().showPromptDialog(
 //                                    context.getString(R.string.prompt_title),
 //                                    context.getString(R.string.share_device_deny_success) + "\n" + s
 //                            );
 //                        }
-//                    }
-//                })
-//                .build();
-//        XLinkSDK.startTask(task);
+                    }
+                })
+                .build();
+        XLinkSDK.startTask(task);
     }
 
     private void doAcceptShare(EventNotifyHelper.DeviceShareNotify notify) {
-//        XLinkHandleShareDeviceTask task = XLinkHandleShareDeviceTask.newBuilder()
-//                .setAction(XLinkHandleShareDeviceTask.Action.ACCEPT)
-//                .setInviteCode(notify.invite_code)
-//                .setUid(UserManager.getInstance().getUid())
-//                .setListener(new XLinkTaskListener<String>() {
-//                    @Override
-//                    public void onError(XLinkErrorCode xLinkErrorCode) {
-//                        XLog.d(TAG, "XLinkHandleShareDeviceTask onError() called with: " + "xLinkErrorCode = [" + xLinkErrorCode + "]");
-//                        Context context = mCurrentBaseActivity.get();
+        XLinkHandleShareDeviceTask task = XLinkHandleShareDeviceTask.newBuilder()
+                .setAction(XLinkHandleShareDeviceTask.Action.ACCEPT)
+                .setInviteCode(notify.invite_code)
+                .setUid(UserManager.getInstance().getUid())
+                .setListener(new XLinkTaskListener<String>() {
+                    @Override
+                    public void onError(XLinkErrorCode xLinkErrorCode) {
+                        XLog.d(TAG, "XLinkHandleShareDeviceTask onError() called with: " + "xLinkErrorCode = [" + xLinkErrorCode + "]");
+                        Context context = mCurrentBaseActivity.get();
 //                        if (mCurrentBaseActivity.get() != null) {
 //                            mCurrentBaseActivity.get().showPromptDialog(
 //                                    context.getString(R.string.prompt_title),
@@ -238,61 +240,61 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
 //
 //                            );
 //                        }
-//                    }
-//
-//                    @Override
-//                    public void onStart() {
-//                        XLog.d(TAG, "XLinkHandleShareDeviceTask onStart()");
-//                    }
-//
-//                    @Override
-//                    public void onComplete(String s) {
-//                        XLog.d(TAG, "XLinkHandleShareDeviceTask onComplete() called with: " + "s = [" + s + "]");
-//
-//                        refreshDevice();
-//
-////                        Context context = mCurrentBaseActivity.get();
-////                        if (mCurrentBaseActivity.get() != null) {
-////                            mCurrentBaseActivity.get().showPromptDialog(
-////                                    context.getString(R.string.prompt_title),
-////                                    context.getString(R.string.share_device_accept_success) + "\n" + s,
-////                                    new View.OnClickListener() {
-////                                        @Override
-////                                        public void onClick(View v) {
-////                                            refreshDevice();
-////                                        }
-////                                    }
-////                            ).show();
-////                        }
-//                    }
-//                })
-//                .build();
-//        XLinkSDK.startTask(task);
+                    }
+
+                    @Override
+                    public void onStart() {
+                        XLog.d(TAG, "XLinkHandleShareDeviceTask onStart()");
+                    }
+
+                    @Override
+                    public void onComplete(String s) {
+                        XLog.d(TAG, "XLinkHandleShareDeviceTask onComplete() called with: " + "s = [" + s + "]");
+
+                        refreshDevice();
+
+//                        Context context = mCurrentBaseActivity.get();
+//                        if (mCurrentBaseActivity.get() != null) {
+//                            mCurrentBaseActivity.get().showPromptDialog(
+//                                    context.getString(R.string.prompt_title),
+//                                    context.getString(R.string.share_device_accept_success) + "\n" + s,
+//                                    new View.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(View v) {
+//                                            refreshDevice();
+//                                        }
+//                                    }
+//                            ).show();
+//                        }
+                    }
+                })
+                .build();
+        XLinkSDK.startTask(task);
     }
 
     private void refreshDevice() {
-//        DeviceManager.getInstance().refreshDeviceList(new XLinkTaskListener<List<XDevice>>() {
-//            @Override
-//            public void onError(XLinkErrorCode xLinkErrorCode) {
-//                Toast.makeText(mContext.get(), "刷新失败：" + xLinkErrorCode, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onStart() {
-//            }
-//
-//            @Override
-//            public void onComplete(List<XDevice> xDevices) {
-//                // 通知添加完成
-//                EventBus.getDefault().post(new UpdateListEvent());
-//            }
-//        });
+        DeviceManager.getInstance().refreshDeviceList(new XLinkTaskListener<List<XDevice>>() {
+            @Override
+            public void onError(XLinkErrorCode xLinkErrorCode) {
+                Toast.makeText(mContext.get(), "刷新失败：" + xLinkErrorCode, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStart() {
+            }
+
+            @Override
+            public void onComplete(List<XDevice> xDevices) {
+                // 通知添加完成
+                EventBus.getDefault().post(new UpdateListEvent());
+            }
+        });
     }
 
     @Override
     public void onDataPointUpdate(XDevice xDevice, List<XLinkDataPoint> list) {
         // 当SDK收到设备上报的数据端点时，会回调这个方法。
-        Log.d(TAG, "onDataPointUpdate() called with: " + "xDevice = [" + xDevice.getMacAddress() + "], list = [" + list + "]");
+        Log.e(TAG, "onDataPointUpdate() called with: " + "xDevice = [" + xDevice.getMacAddress() + "], list = [" + list + "]");
         Device device = DeviceManager.getInstance().getDevice(xDevice.getMacAddress());
         if (device != null) {
             for (XLinkDataPoint dataPoint : list) {
@@ -303,13 +305,13 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
             }
         }
         //通知界面进行UI变更
-//        EventBus.getDefault().post(new DataPointUpdateEvent());
+        EventBus.getDefault().post(new DataPointUpdateEvent());
     }
 
     @Override
     public void onDeviceStateChanged(XDevice xDevice, XDevice.State state) {
         // 受SDK管理的设备（用户未调用`XinkSDK.getDeviceManager().removeDevice(xDevice)`）状态发生改变时
-        Log.d(TAG, "onDeviceStateChanged() called with: " + "xDevice = [" + xDevice.getMacAddress() + "], status = [" + state + "]");
+        Log.e(TAG, "onDeviceStateChanged() called with: " + "xDevice = [" + xDevice.getMacAddress() + "], status = [" + state + "]");
         Device device = DeviceManager.getInstance().getDevice(xDevice.getMacAddress());
         if (device == null) {
             Log.w(TAG, "null device state changed : " + xDevice);
@@ -329,21 +331,21 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
                 break;
             case CONNECTED:
                 Log.w(TAG, xDevice.getMacAddress() + " : CONNECTED ");
-//                EventBus.getDefault().post(new UpdateListEvent());
+                EventBus.getDefault().post(new UpdateListEvent());
                 break;
         }
     }
 
     @Override
     public void onDeviceChanged(XDevice xDevice, XDevice.Event event) {
-        Log.d(TAG, "onDeviceChanged() called with: xDevice = [" + xDevice + "], event = [" + event + "]");
+        Log.e(TAG, "onDeviceChanged() called with: xDevice = [" + xDevice + "], event = [" + event + "]");
         switch (event) {
             case SUBSCRIBE:
                 break;
             case UNSUBSCRIBE: {
                 Toast.makeText(mContext.get(), xDevice.getMacAddress() + " 已被取消订阅，请刷新列表", Toast.LENGTH_SHORT).show();
                 DeviceManager.getInstance().removeDevice(xDevice.getMacAddress());
-//                EventBus.getDefault().post(new UpdateListEvent());
+                EventBus.getDefault().post(new UpdateListEvent());
             }
             break;
             case INFO:
