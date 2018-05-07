@@ -44,9 +44,9 @@
             android:name=".activity.JoinWifiFailedActivity"
             android:screenOrientation="portrait" />
 
-        <service android:name="cn.xlink.sdk.v5.module.main.KeepAliveService"/>
+        <service android:name="cn.xlink.sdk.v5.module.main.KeepAliveService" />
 
-
+        <activity android:name=".activity.AddSweeperAlarmActivity"></activity>
     </application>
 
 </manifest>

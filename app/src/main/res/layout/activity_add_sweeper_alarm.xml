@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="wtwd.com.superapp.activity.AddSweeperAlarmActivity">
+
+    <include layout="@layout/tool_bar" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/add_sweeper_banner" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_66"
+        android:gravity="center"
+        android:text="设备接通电源，确认指示灯在闪烁"
+        android:textColor="@color/color_33"
+        android:textSize="@dimen/text_14"
+
+        />
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_42"
+        android:layout_marginLeft="@dimen/common_40"
+        android:layout_marginRight="@dimen/common_40"
+        android:layout_marginTop="@dimen/common_98"
+        android:background="@drawable/btn_wifi_selector"
+        android:gravity="center"
+        android:text="确认指示灯在快闪"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_14"
+
+        />
+
+</LinearLayout>

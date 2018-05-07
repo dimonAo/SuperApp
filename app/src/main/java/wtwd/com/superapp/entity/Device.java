@@ -1,9 +1,12 @@
 package wtwd.com.superapp.entity;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.xlink.sdk.common.CommonUtil;
 import cn.xlink.sdk.core.model.DataPointValueType;
 import cn.xlink.sdk.v5.model.XDevice;
 import cn.xlink.sdk.v5.model.XLinkDataPoint;
@@ -47,9 +50,9 @@ public final class Device {
     }
 
     public void setDataPoints(List<XLinkDataPoint> dataPoints) {
+        Log.e(TAG, "setDataPoints");
         mDataPoints = dataPoints;
 //        if (!CommonUtil.isEmpty(dataPoints)) {
-            // 求并集
 //            mDataPoints.removeAll(dataPoints);
 //            mDataPoints.addAll(dataPoints);
 //        }

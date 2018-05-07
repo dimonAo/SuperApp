@@ -3,11 +3,13 @@ package wtwd.com.superapp.activity;
 import android.content.Context;
 import android.media.MediaDrm;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,7 +20,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -33,6 +38,7 @@ import cn.xlink.sdk.v5.module.datapoint.XLinkGetDataPointTask;
 import cn.xlink.sdk.v5.module.datapoint.XLinkSetDataPointTask;
 import cn.xlink.sdk.v5.module.main.XLinkErrorCode;
 import cn.xlink.sdk.v5.module.main.XLinkSDK;
+import cn.xlink.sdk.v5.module.notify.EventNotifyHelper;
 import wtwd.com.superapp.R;
 import wtwd.com.superapp.base.BaseActivity;
 import wtwd.com.superapp.entity.Device;
@@ -81,7 +87,10 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     private List<Button> mDirectionButton = new ArrayList<>();
 
     private Device mDevice;
+    private ButtonTouchListener mButtonTouchListener;
 
+    private static final char[] HEX_CHAR = {'0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
     @Override
     public void initToolBar(Toolbar toolbar) {
@@ -108,9 +117,23 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onCreateView(Bundle saveInstanceState) {
-        EventBus.getDefault().register(this);
+        mButtonTouchListener = new ButtonTouchListener();
+
         initView();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+//        XLinkSDK.getDeviceManager().removeDeviceStateListener(mDeviceStateListener);
+        super.onDestroy();
     }
 
     private void initView() {
@@ -207,12 +230,17 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
         btn_standard.setOnClickListener(this);
         btn_strong.setOnClickListener(this);
 
-        btn_left.setOnClickListener(this);
-        btn_right.setOnClickListener(this);
-        btn_down.setOnClickListener(this);
+        btn_left.setOnClickListener(mButtonTouchListener);
+        btn_left.setOnTouchListener(mButtonTouchListener);
+        btn_right.setOnClickListener(mButtonTouchListener);
+        btn_right.setOnTouchListener(mButtonTouchListener);
+        btn_down.setOnClickListener(mButtonTouchListener);
+        btn_down.setOnTouchListener(mButtonTouchListener);
         btn_top.setOnClickListener(this);
 
         img_btn_center.setOnClickListener(this);
+
+//        btn_right.setOnTouchListener(mButtonTouchListener);
 
 
     }
@@ -347,7 +375,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                  *
                  */
                 int battery = ((Byte) dataPoint.getValue()) & 0xff;
-                Log.e(TAG, "battery : " + battery);
+//                Log.e(TAG, "battery : " + battery);
                 text_battery.setText(String.format("%s%%", battery + ""));
                 break;
 
@@ -455,7 +483,60 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
 
                 break;
+
+            case 11:
+                Log.e(TAG, "datapoints getIndex 11");
+                byte[] b = ObjectToByte(dataPoint.getValue());
+                Log.e(TAG, "datapoints getIndex" + Arrays.toString(b));
+
+//                String str = dataPoint.getValue().toString();
+//                Log.e(TAG, "convertStringToHex : ----> " + convertStringToHex(str));
+                Log.e(TAG, "convertStringToHex : ----> " + bytesToHexFun2(b));
+
+
+                break;
         }
+    }
+
+
+    public byte[] ObjectToByte(java.lang.Object obj) {
+        byte[] bytes = null;
+        try {
+            // object to bytearray
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream oo = new ObjectOutputStream(bo);
+            oo.writeObject(obj);
+
+            bytes = bo.toByteArray();
+
+            bo.close();
+            oo.close();
+        } catch (Exception e) {
+            System.out.println("translation" + e.getMessage());
+            e.printStackTrace();
+        }
+        return bytes;
+    }
+
+
+
+
+    /**
+     * 方法二：
+     * byte[] to hex string
+     *
+     * @param bytes
+     * @return
+     */
+    public static String bytesToHexFun2(byte[] bytes) {
+        char[] buf = new char[bytes.length * 2];
+        int index = 0;
+        for (byte b : bytes) { // 利用位运算进行转换，可以看作方法一的变种
+            buf[index++] = HEX_CHAR[b >>> 4 & 0xf];
+            buf[index++] = HEX_CHAR[b & 0xf];
+        }
+
+        return new String(buf);
     }
 
 
@@ -539,7 +620,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public View getSnackView() {
-        return null;
+        return tool_bar;
     }
 
 //trdl
@@ -632,15 +713,15 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 value = (byte) 1;
 
                 break;
-            case R.id.btn_right:
-                updateDirection(BTN_RIGHT);
-                break;
-            case R.id.btn_down:
-                updateDirection(BTN_DOWN);
-                break;
-            case R.id.btn_left:
-                updateDirection(BTN_LEFT);
-                break;
+//            case R.id.btn_right:
+//                updateDirection(BTN_RIGHT);
+//                break;
+//            case R.id.btn_down:
+//                updateDirection(BTN_DOWN);
+//                break;
+//            case R.id.btn_left:
+//                updateDirection(BTN_LEFT);
+//                break;
 
             case R.id.img_btn_center:
                 if (img_btn_center.isSelected()) {
@@ -770,7 +851,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                         Log.d(TAG, "onComplete() called with: = [" + dp + "]");
                         mDevice.setDataPointByIndex(dp);
 
-//                        EventBus.getDefault().post(new DataPointUpdateEvent());
+                        EventBus.getDefault().post(new DataPointUpdateEvent());
                     }
                 })
                 .build();
@@ -787,7 +868,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 .setListener(new XLinkTaskListener<List<XLinkDataPoint>>() {
                     @Override
                     public void onError(XLinkErrorCode errorCode) {
-                        Log.d(TAG, "XLinkProbeTask onError() called with: errorCode = [" + errorCode + "]");
+                        Log.e(TAG, "XLinkProbeTask onError() called with: errorCode = [" + errorCode + "]");
 //                        if (getView() != null) {
 //                            getView().dismissLoading();
 //                            Toast.makeText(DemoApplication.getAppInstance(), "拉取失败：" + errorCode.toString(), Toast.LENGTH_SHORT).show();
@@ -796,7 +877,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
                     @Override
                     public void onStart() {
-                        Log.d(TAG, "XLinkProbeTask onStart() called");
+                        Log.e(TAG, "XLinkProbeTask onStart() called");
 //                        if (getView() != null) {
 //                            getView().showLoading();
 //                        }
@@ -807,8 +888,10 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 //                        if (getView() != null) {
 //                            getView().dismissLoading();
 //                        }
-                        Log.d(TAG, "XLinkProbeTask onComplete() called with: result = [" + dataPoints + "]");
+                        Log.e(TAG, "XLinkProbeTask onComplete() called with: result = [" + dataPoints + "]");
 
+                        XLinkDataPoint mPont = new XLinkDataPoint(11, DataPointValueType.STRING);
+                        dataPoints.add(mPont);
                         mDevice.setDataPoints(dataPoints);
 
                         Collections.sort(mDevice.getDataPoints(), new Comparator<XLinkDataPoint>() {
@@ -831,8 +914,141 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDataPointUpdateEvent(DataPointUpdateEvent event) {
-        Log.e(TAG, "event bus get data : " + mDevice.getDataPoints().toString());
+//        Log.e(TAG, "event bus get data : " + mDevice.getDataPoints().toString());
+        Log.e(TAG, "event bus get data : ");
         displaySweeperStatus(mDevice.getDataPoints());
+    }
+
+
+    public String convertStringToHex(String str) {
+
+        char[] chars = str.toCharArray();
+
+        StringBuffer hex = new StringBuffer();
+        for (int i = 0; i < chars.length; i++) {
+            hex.append(Integer.toHexString((int) chars[i]));
+        }
+
+        return hex.toString();
+    }
+
+
+    /**
+     * 16进制字符串转换为字符串
+     *
+     * @param s
+     * @return
+     */
+    public static String hexStringToString(String s) {
+        if (s == null || s.equals("")) {
+            return null;
+        }
+        s = s.replace(" ", "");
+        byte[] baKeyword = new byte[s.length() / 2];
+        for (int i = 0; i < baKeyword.length; i++) {
+            try {
+                baKeyword[i] = (byte) (0xff & Integer.parseInt(
+                        s.substring(i * 2, i * 2 + 2), 16));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            s = new String(baKeyword, "utf-8");
+            new String();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return s;
+    }
+
+
+    private class ButtonTouchListener implements
+            View.OnClickListener,
+            View.OnTouchListener {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_left:
+                    break;
+                case R.id.btn_right:
+                    break;
+                case R.id.btn_down:
+                    break;
+            }
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+
+            int index = 0;
+            byte value = 0;
+            switch (v.getId()) {
+
+                case R.id.btn_left:
+                    if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                        Log.e(TAG, "left down");
+                        btn_left.setSelected(true);
+                        index = 3;
+                        value = (byte) 3;
+                        setDataPoint(index, DataPointValueType.BYTE, value);
+                    }
+
+                    if (MotionEvent.ACTION_UP == event.getAction()) {
+                        Log.e(TAG, "left up");
+                        btn_left.setSelected(false);
+                        index = 3;
+                        value = (byte) 0;
+                        setDataPoint(index, DataPointValueType.BYTE, value);
+                    }
+
+                    break;
+
+                case R.id.btn_right:
+                    if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                        Log.e(TAG, "right down");
+                        btn_right.setSelected(true);
+                        index = 3;
+                        value = (byte) 4;
+                        setDataPoint(index, DataPointValueType.BYTE, value);
+                    }
+
+                    if (MotionEvent.ACTION_UP == event.getAction()) {
+                        Log.e(TAG, "right up");
+                        btn_right.setSelected(false);
+                        index = 3;
+                        value = (byte) 0;
+                        setDataPoint(index, DataPointValueType.BYTE, value);
+                    }
+
+                    break;
+
+                case R.id.btn_down:
+                    if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                        Log.e(TAG, "down down");
+                        btn_down.setSelected(true);
+                        index = 3;
+                        value = (byte) 2;
+                        setDataPoint(index, DataPointValueType.BYTE, value);
+                    }
+
+                    if (MotionEvent.ACTION_UP == event.getAction()) {
+                        Log.e(TAG, "down up");
+                        btn_down.setSelected(false);
+                        index = 3;
+                        value = (byte) 0;
+                        setDataPoint(index, DataPointValueType.BYTE, value);
+                    }
+                    break;
+
+            }
+
+            Log.e(TAG, "on touch ");
+
+
+            return true;
+        }
     }
 
 

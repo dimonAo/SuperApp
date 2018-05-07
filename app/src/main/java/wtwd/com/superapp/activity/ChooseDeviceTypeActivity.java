@@ -50,7 +50,7 @@ public class ChooseDeviceTypeActivity extends BaseActivity {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (0 == position) {
-                    readyGo(ConfigWifiActivity.class);
+                    readyGo(AddSweeperAlarmActivity.class);
                 }
             }
         });
