@@ -13,6 +13,7 @@
     <color name="colorButtonGrey">#565656</color>
     <color name="colorMeNameGrey">#545454</color>
     <color name="colorNineO">#909090</color>
+    <color name="colorWhite_fb">#fbfbfb</color>
 
     <color name="colorMainAtyBottomTextSelect">#17bbc1</color>
     <color name="colorMainAtyBottomTextDefault">#7c7c7c</color>
@@ -25,8 +26,12 @@
     <color name="blue_text">#3e8bf3</color>
     <color name="color_33">#333333</color>
     <color name="color_66">#666666</color>
+    <color name="color_99">#999999</color>
 
     <color name="blue_btn_start_color">#77b1f9</color>
     <color name="blue_btn_end_color">#5187eb</color>
     <color name="blue_btn_press">#2267e6</color>
+
+    <color name="red_btn_delete">#f44b4b</color>
+    <color name="red_btn_delete_press">#7ff44b4b</color>
 </resources>

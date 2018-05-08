@@ -83,87 +83,6 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
      */
 
     private void displayDeviceList() {
-//        mDeviceEntirys.clear();
-//
-//        DeviceEntity en = new DeviceEntity();
-//        en.setDevice_name("扫地boy");
-//        en.setDevice_type(4);
-//        en.setOn_line(1);
-//        en.setPosition_name("客厅");
-//        mDeviceEntirys.add(en);
-
-//        for (int i = 1; i < 11; i++) {
-//            DeviceEntity en = new DeviceEntity();
-//            if (8 > i) {
-//                en.setDevice_type(i);
-//            } else {
-//                en.setDevice_type(i - 7);
-//            }
-//
-//            switch (i) {
-//                case 1:
-//                    en.setDevice_name("小夜灯");
-//                    en.setOn_line(0);
-//                    en.setPosition_name("卧室");
-//                    break;
-//
-//                case 2:
-//                    en.setDevice_name("空调1.5");
-//                    en.setOn_line(1);
-//                    en.setPosition_name("主卧室");
-//                    break;
-//
-//                case 3:
-//                    en.setDevice_name("厨房");
-//                    en.setOn_line(0);
-//                    en.setPosition_name("九阳电饭锅");
-//                    break;
-//
-//                case 4:
-//                    en.setDevice_name("扫地boy");
-//                    en.setOn_line(1);
-//                    en.setPosition_name("客厅");
-//                    break;
-//
-//                case 5:
-//                    en.setDevice_name("净化器");
-//                    en.setOn_line(1);
-//                    en.setPosition_name("客厅");
-//                    break;
-//
-//                case 6:
-//                    en.setDevice_name("三孔插座");
-//                    en.setOn_line(0);
-//                    en.setPosition_name("书房");
-//                    break;
-//
-//                case 7:
-//                    en.setDevice_name("三菱冰箱");
-//                    en.setOn_line(1);
-//                    en.setPosition_name("厨房");
-//                    break;
-//
-//                case 8:
-//                    en.setDevice_name("吊灯");
-//                    en.setOn_line(1);
-//                    en.setPosition_name("阳台");
-//                    break;
-//
-//                case 9:
-//                    en.setDevice_name("空调2.0");
-//                    en.setOn_line(0);
-//                    en.setPosition_name("客厅");
-//                    break;
-//
-//                case 10:
-//                    en.setDevice_name("厨房");
-//                    en.setOn_line(1);
-//                    en.setPosition_name("美的电饭锅");
-//                    break;
-//            }
-//
-//            mDeviceEntirys.add(en);
-//        }
 
         mAdapter.notifyDataSetChanged();
     }
@@ -205,6 +124,7 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
         lin_add.setOnClickListener(this);
 
 //        loginUser("aowending@waterworld.com.cn", "Wtwd123456");
+//        login(Constant.PREF_KEY_COM_ID, "", "cminyan@waterworld.com.cn", "wtwd123456");
         login(Constant.PREF_KEY_COM_ID, "", "zxiaobin@waterworld.com.cn", "Wtwd123456");
 
     }

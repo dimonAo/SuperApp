@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
+import cn.xlink.sdk.v5.model.XDevice;
 import wtwd.com.superapp.R;
 import wtwd.com.superapp.entity.Device;
 import wtwd.com.superapp.entity.DeviceEntity;
@@ -57,13 +58,13 @@ public class MainFamilyAdapter extends BaseQuickAdapter<Device, BaseViewHolder> 
 //                .setText(R.id.text_position, item.getPosition_name())
                 .setText(R.id.text_device_name, item.getXDevice().getDeviceName());
 
-        if (!item.getXDevice().isActive()) {
-            helper.setText(R.id.text_device_on_line, "设备离线");
+        if (XDevice.State.CONNECTED == item.getXDevice().getConnectionState()) {
+            helper.setText(R.id.text_device_on_line, "设备在线");
             helper.getView(R.id.img_device_type).setSelected(false);
 
 //        } else if (1 == item.getOn_line()) {
         } else {
-            helper.setText(R.id.text_device_on_line, "设备在线");
+            helper.setText(R.id.text_device_on_line, "设备离线");
             helper.getView(R.id.img_device_type).setSelected(true);
         }
 

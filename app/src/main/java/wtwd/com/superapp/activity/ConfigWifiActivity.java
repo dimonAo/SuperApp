@@ -76,8 +76,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
     @Override
     public void initToolBar(Toolbar toolbar) {
         text_tool_bar_title.setText("选择设备工作Wifi");
-        initToolbar();
-
+        toolbar.setNavigationIcon(R.mipmap.arrow_grey);
     }
 
     @Override
@@ -146,7 +145,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
 
     @Override
     public View getSnackView() {
-        return null;
+        return tool_bar;
     }
 
     private String getSsidString() {
@@ -188,11 +187,6 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
 
     }
 
-
-    private void initToolbar() {
-
-
-    }
 
     private void addListener() {
 
@@ -329,6 +323,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (1 == msg.what) {
+                Log.e(TAG, "add device handler");
                 XDevice xDevice = (XDevice) msg.obj;
                 addDevices(xDevice);
             }
@@ -356,12 +351,15 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
                     @Override
                     public void onComplete(XDevice xDevice) {
                         // 订阅成功
-                        Log.d(TAG, "subscribe device successfully: " + xDevice.getMacAddress());
+                        Log.e(TAG, "subscribe device successfully: " + xDevice.getMacAddress());
                         Device device = new Device(xDevice);
                         DeviceManager.getInstance().addDevice(device);
-
+                        showSnackBarLong("绑定设备成功");
                         // 从添加队列里拿下一个设备进行添加操作
                         mSubscribing = false;
+                        readyGo(MainActivity.class);
+
+
                     }
                 })
                 .build();
@@ -378,6 +376,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
     public void onLinked(SmartLinkedModule var1) {
         Log.e("TAG", "onLinked");
         Log.e("TAG", "var1.getMac() : " + var1.getMac());
+        showSnackBarLong("配网成功，开始绑定设备");
         scan(Constant.PRODUCTID, var1.getMac());
 
     }
@@ -418,6 +417,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
     public void onTimeOut() {
         //连接失败，超时
         Log.e("TAG", "配网失败");
+        showSnackBarLong("配网失败");
         if (mConnectingDialog.isShowing()) {
             mRingProgressView.setProgress(100);
             mConnectingDialog.dismiss();

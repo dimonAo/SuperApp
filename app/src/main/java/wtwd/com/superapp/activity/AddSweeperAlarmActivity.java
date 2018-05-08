@@ -14,6 +14,7 @@ public class AddSweeperAlarmActivity extends BaseActivity {
     @Override
     public void initToolBar(Toolbar toolbar) {
         text_tool_bar_title.setText("添加设备");
+        toolbar.setNavigationIcon(R.mipmap.arrow_grey);
     }
 
     @Override

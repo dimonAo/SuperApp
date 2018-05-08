@@ -240,6 +240,15 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
         img_btn_center.setOnClickListener(this);
 
+        img_tool_bar_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("device", mDevice.getXDevice().getMacAddress());
+                readyGo(SweeperSetActivity.class, bundle);
+            }
+        });
+
 //        btn_right.setOnTouchListener(mButtonTouchListener);
 
 
@@ -406,7 +415,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 } else if (0 == fanState) {
                     updateStrongMode(0);
                 } else {
-                    updateStrongMode(fanState + 1);
+                    updateStrongMode(fanState);
                 }
 
                 break;
@@ -485,58 +494,21 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case 11:
+                if (null == dataPoint.getValue()) {
+                    Log.e(TAG, "datapoints getIndex 11 null");
+                    return;
+                }
                 Log.e(TAG, "datapoints getIndex 11");
-                byte[] b = ObjectToByte(dataPoint.getValue());
-                Log.e(TAG, "datapoints getIndex" + Arrays.toString(b));
-
-//                String str = dataPoint.getValue().toString();
-//                Log.e(TAG, "convertStringToHex : ----> " + convertStringToHex(str));
-                Log.e(TAG, "convertStringToHex : ----> " + bytesToHexFun2(b));
+//                byte[] b = ObjectToByte(dataPoint.getValue());
+                Log.e(TAG, "datapoints getIndex" + dataPoint.getValue().toString());
+//
+////                String str = dataPoint.getValue().toString();
+////                Log.e(TAG, "convertStringToHex : ----> " + convertStringToHex(str));
+//                Log.e(TAG, "convertStringToHex : ----> " + bytesToHexFun2(b));
 
 
                 break;
         }
-    }
-
-
-    public byte[] ObjectToByte(java.lang.Object obj) {
-        byte[] bytes = null;
-        try {
-            // object to bytearray
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            ObjectOutputStream oo = new ObjectOutputStream(bo);
-            oo.writeObject(obj);
-
-            bytes = bo.toByteArray();
-
-            bo.close();
-            oo.close();
-        } catch (Exception e) {
-            System.out.println("translation" + e.getMessage());
-            e.printStackTrace();
-        }
-        return bytes;
-    }
-
-
-
-
-    /**
-     * 方法二：
-     * byte[] to hex string
-     *
-     * @param bytes
-     * @return
-     */
-    public static String bytesToHexFun2(byte[] bytes) {
-        char[] buf = new char[bytes.length * 2];
-        int index = 0;
-        for (byte b : bytes) { // 利用位运算进行转换，可以看作方法一的变种
-            buf[index++] = HEX_CHAR[b >>> 4 & 0xf];
-            buf[index++] = HEX_CHAR[b & 0xf];
-        }
-
-        return new String(buf);
     }
 
 
@@ -738,6 +710,10 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 //                    setDataPoint(5, DataPointValueType.BYTE, (byte) 2);
                 }
                 break;
+
+//            case R.id.img_tool_bar_right:
+//
+//                break;
         }
 
         setDataPoint(index, DataPointValueType.BYTE, value);
@@ -917,49 +893,6 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 //        Log.e(TAG, "event bus get data : " + mDevice.getDataPoints().toString());
         Log.e(TAG, "event bus get data : ");
         displaySweeperStatus(mDevice.getDataPoints());
-    }
-
-
-    public String convertStringToHex(String str) {
-
-        char[] chars = str.toCharArray();
-
-        StringBuffer hex = new StringBuffer();
-        for (int i = 0; i < chars.length; i++) {
-            hex.append(Integer.toHexString((int) chars[i]));
-        }
-
-        return hex.toString();
-    }
-
-
-    /**
-     * 16进制字符串转换为字符串
-     *
-     * @param s
-     * @return
-     */
-    public static String hexStringToString(String s) {
-        if (s == null || s.equals("")) {
-            return null;
-        }
-        s = s.replace(" ", "");
-        byte[] baKeyword = new byte[s.length() / 2];
-        for (int i = 0; i < baKeyword.length; i++) {
-            try {
-                baKeyword[i] = (byte) (0xff & Integer.parseInt(
-                        s.substring(i * 2, i * 2 + 2), 16));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            s = new String(baKeyword, "utf-8");
-            new String();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return s;
     }
 
 

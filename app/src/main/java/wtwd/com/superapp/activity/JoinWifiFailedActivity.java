@@ -15,6 +15,7 @@ public class JoinWifiFailedActivity extends BaseActivity {
     @Override
     public void initToolBar(Toolbar toolbar) {
         text_tool_bar_title.setText("添加失败");
+        toolbar.setNavigationIcon(R.mipmap.arrow_grey);
     }
 
     @Override

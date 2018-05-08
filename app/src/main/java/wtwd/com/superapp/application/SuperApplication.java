@@ -46,8 +46,10 @@ public class SuperApplication extends Application {
                 //正式环境和CM地址
                 //测试环境时需要开启 SSL false
 //                .setEnableSSL(true)
+//                .setCloudServer("cm2.xlink.cn", 1884) // 设置cm服务器
+//                .setApiServer("https://api2.xlink.cn", 443) // 设置HTTP API服务器
                 .setXLinkUser(lastUser) // 加载已经保存的授权信息
-                .setDebug(true) // 是否打印SDK日志
+                .setDebug(false) // 是否打印SDK日志
                 .setAutoDumpCrash(true) //是否自动转存崩溃日志
                 .setXLinkCloudListener(xlinkListener) // 设置云端回调监听
                 .setUserListener(xlinkListener) // 设置用户登录回调监听
