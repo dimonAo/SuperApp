@@ -54,6 +54,10 @@
         <activity
             android:name=".activity.SweeperSetActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.SweeperDetailMapActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

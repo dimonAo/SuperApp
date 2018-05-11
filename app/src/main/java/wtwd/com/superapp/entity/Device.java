@@ -39,6 +39,8 @@ public final class Device {
     public void setDataPointByIndex(XLinkDataPoint dp) {
         for (XLinkDataPoint dataPoint : getDataPoints()) {
             //匹配index和数据类型
+            Log.e(TAG, "   " + dataPoint.getIndex() + "    " + dataPoint.getType());
+            Log.e(TAG, "   " + dp.getIndex() + "   " + dp.getType());
             if (dataPoint.getIndex() == dp.getIndex() && dataPoint.getType() == dp.getType()) {
                 dataPoint.setValue(dp.getValue());
             }

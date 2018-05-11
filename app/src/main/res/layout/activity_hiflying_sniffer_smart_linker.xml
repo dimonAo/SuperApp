@@ -56,19 +56,17 @@
                 android:text="切换网络"
                 android:textColor="@color/color_66"
                 android:textSize="@dimen/text_10"
-
+                android:visibility="gone"
 
                 />
 
-            <EditText
+            <TextView
                 android:id="@+id/editText_hiflying_smartlinker_ssid"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/common_42"
                 android:layout_toLeftOf="@id/text_change_wifi"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/color_33"
@@ -104,6 +102,7 @@
                 android:gravity="center_vertical"
                 android:hint="请输入WIFI密码"
                 android:imeOptions="actionDone"
+                android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/color_33"
@@ -127,6 +126,7 @@
         android:layout_marginRight="@dimen/common_42"
         android:layout_marginTop="@dimen/common_24"
         android:background="@drawable/btn_wifi_selector"
+        style="?android:attr/borderlessButtonStyle"
         android:gravity="center"
         android:text="确定"
         android:textColor="@color/colorWhite"

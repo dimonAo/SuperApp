@@ -11,4 +11,5 @@
     <string name="hiflying_smartlinker_no_wifi_connectivity">没有Wifi连接</string>
     <string name="hiflying_config_wifi">手机没有连接Wifi\n无法为设备配网</string>
     <string name="connect_wifi_success">连接成功!   开启您的智能生活~</string>
+    <string name="wifi_off_line">设备已离线，请检查设备的Wifi连接是否正常</string>
 </resources>

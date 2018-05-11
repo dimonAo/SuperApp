@@ -123,7 +123,7 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
             int len = (src[0] << 2) | src[1];
             String srcString = new String(src, 2, len);
 
-            Toast.makeText(mContext.get(), srcString, Toast.LENGTH_LONG).show();
+//            Toast.makeText(mContext.get(), srcString, Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
             Log.e(TAG, "onEventNotify: " + eventNotify, ex);
             ex.printStackTrace();
@@ -331,9 +331,9 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
                 break;
             case CONNECTED:
                 Log.w(TAG, xDevice.getMacAddress() + " : CONNECTED ");
-                EventBus.getDefault().post(new UpdateListEvent());
                 break;
         }
+        EventBus.getDefault().post(new UpdateListEvent());
     }
 
     @Override
@@ -366,6 +366,7 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
     @Override
     public void onUserLogout(LogoutReason reason) {
         // 当 setPassword/setPhone/setEmail 被正确设置，而且用户被下线的时候，会回调这个方法。
+        // TODO: 2018/5/9 0009 有单点登录，会导致主界面变灰
         switch (reason) {
             case SINGLE_SIGN_KICK_OFF:
                 Log.w(TAG, "SINGLE_SIGN_KICK_OFF");

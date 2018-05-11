@@ -94,7 +94,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Snackbar snackbar = Snackbar.make(getSnackView(), msg, Snackbar.LENGTH_SHORT);
         View view = snackbar.getView();
         TextView textView = (TextView) view.findViewById(R.id.snackbar_text);
-        view.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        view.setBackgroundColor(ContextCompat.getColor(this, R.color.colorMainAtyBottomTextSelect));
         textView.setTextColor(Color.WHITE);
 
         return snackbar;
@@ -104,7 +104,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Snackbar snackbar = Snackbar.make(getSnackView(), msg, Snackbar.LENGTH_LONG);
         View view = snackbar.getView();
         TextView textView = (TextView) view.findViewById(R.id.snackbar_text);
-        view.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        view.setBackgroundColor(ContextCompat.getColor(this, R.color.colorMainAtyBottomTextSelect));
         textView.setTextColor(Color.RED);
 
         return snackbar;

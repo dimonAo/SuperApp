@@ -48,6 +48,7 @@
         android:layout_marginRight="@dimen/common_58"
         android:layout_marginTop="@dimen/common_44"
         android:background="@drawable/btn_wifi_selector"
+        style="?android:attr/borderlessButtonStyle"
         android:gravity="center"
         android:text="去连接"
         android:textColor="@color/colorWhite"

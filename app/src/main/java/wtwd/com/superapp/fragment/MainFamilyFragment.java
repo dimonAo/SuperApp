@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import org.apache.http.Header;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +37,8 @@ import wtwd.com.superapp.adapter.MainFamilyAdapter;
 import wtwd.com.superapp.base.BaseFragment;
 import wtwd.com.superapp.entity.Device;
 import wtwd.com.superapp.entity.DeviceEntity;
+import wtwd.com.superapp.eventbus.DataPointUpdateEvent;
+import wtwd.com.superapp.eventbus.UpdateListEvent;
 import wtwd.com.superapp.manager.DeviceManager;
 import wtwd.com.superapp.manager.UserManager;
 import wtwd.com.superapp.util.Constant;
@@ -92,7 +97,6 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
 //        Utils.setStatusBarColor(getActivity(),R.color.transparent);
 //        Utils.setStatusBarColor(getActivity(),R.color.colorWhite);
         XLinkSDK.start();
-
         Utils.setStatusBarColor(getActivity(), R.color.transparent);
         lin_add = (LinearLayout) mView.findViewById(R.id.lin_add);
 
@@ -124,8 +128,7 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
         lin_add.setOnClickListener(this);
 
 //        loginUser("aowending@waterworld.com.cn", "Wtwd123456");
-//        login(Constant.PREF_KEY_COM_ID, "", "cminyan@waterworld.com.cn", "wtwd123456");
-        login(Constant.PREF_KEY_COM_ID, "", "zxiaobin@waterworld.com.cn", "Wtwd123456");
+
 
     }
 
@@ -161,7 +164,7 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
                         UserManager.getInstance().setAccessToken(result.accessToken);
                         UserManager.getInstance().setAuthString(result.authorize);
                         UserManager.getInstance().setRefreshToken(result.refreshToken);
-
+                        syncDeviceListTask();
                     }
                 })
                 .build();
@@ -208,7 +211,44 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        syncDeviceListTask();
+//        syncDeviceListTask();
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("TAG", "MainFamily fragment onstart");
+        EventBus.getDefault().register(this);
+//                login(Constant.PREF_KEY_COM_ID, "", "cminyan@waterworld.com.cn", "wtwd123456");
+        login(Constant.PREF_KEY_COM_ID, "", "zxiaobin@waterworld.com.cn", "Wtwd123456");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e("TAG", "MainFamily fragment onstop");
+        EventBus.getDefault().unregister(this);
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void UpdateListEvent(UpdateListEvent event) {
+//        Log.e(TAG, "event bus get data : " + mDevice.getDataPoints().toString());
+//        Log.e(TAG, "event bus get data : ");
+//        displaySweeperStatus(mDevice.getDataPoints());
+        Log.e("TAG", "UpdateListEvent");
+        mDeviceEntirys.clear();
+        mDeviceEntirys.addAll(DeviceManager.getInstance().getAllDevices());
+        mAdapter.notifyDataSetChanged();
+
+
+    }
+
+
 }

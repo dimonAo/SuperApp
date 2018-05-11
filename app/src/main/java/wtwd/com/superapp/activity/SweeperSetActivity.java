@@ -91,24 +91,17 @@ public class SweeperSetActivity extends BaseActivity implements View.OnClickList
                 .setListener(new XLinkTaskListener<String>() {
                     @Override
                     public void onError(XLinkErrorCode errorCode) {
-//                        if (getView() != null) {
-//                            getView().dismissLoading();
-//                            getView().showRemoveDeviceError(errorCode);
-//                        }
+
                         showSnackBarLong("解绑失败");
                     }
 
                     @Override
                     public void onStart() {
-//                        getView().showLoading();
+                        //开始移除订阅设备
                     }
 
                     @Override
                     public void onComplete(String result) {
-//                        if (getView() != null) {
-//                            getView().dismissLoading();
-//                            getView().showSuccessRemoveDevice(mDevice);
-//                        }
 
                         showSnackBarLong("解绑成功");
                         readyGo(MainActivity.class);

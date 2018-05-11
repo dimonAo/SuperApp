@@ -34,4 +34,8 @@
 
     <color name="red_btn_delete">#f44b4b</color>
     <color name="red_btn_delete_press">#7ff44b4b</color>
+
+    <color name="color_f3">#f3f3f3</color>
+    <color name="color_ee">#eeeeee</color>
+
 </resources>

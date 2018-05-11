@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/common_188"
+    android:layout_height="@dimen/common_98"
+    android:alpha="0.5"
+    android:background="@drawable/dialog_off_line"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/text_dialog_alarm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/common_14"
+        android:layout_marginRight="@dimen/common_14"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_14" />
+
+
+</LinearLayout>

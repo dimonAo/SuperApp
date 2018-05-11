@@ -4,8 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -21,7 +25,7 @@ import wtwd.com.superapp.R;
 public class RingProgressView extends View {
 
     private static final String TAG = "RingProgressView";
-
+    public static int[] SWEEP_GRADIENT_COLORS;
     /**
      * 起始实心圆画笔
      */
@@ -202,10 +206,10 @@ public class RingProgressView extends View {
 
         //计算圆环半径
         mRadius = (int) (Math.min(getWidth() / 2, getHeight() / 2) * 0.9);
-        if (10 > (mRadius * 0.1)) {
+        if (20 < (mRadius * 0.1)) {
             mProgressWidth = (int) (mRadius * 0.1);
         } else {
-            mProgressWidth = 10;
+            mProgressWidth = 20;
         }
 
         drawRingCircle(canvas);
@@ -241,13 +245,18 @@ public class RingProgressView extends View {
      */
     private void drawProgressArc(Canvas canvas) {
         mProgressPaint.setStrokeWidth(mProgressWidth);
+
+        Shader mColorShader = new SweepGradient(0, 0, SWEEP_GRADIENT_COLORS, null);
+//        Matrix matrix = new Matrix();
+//        matrix.postRotate(0.5f);
+//        mColorShader.setLocalMatrix(matrix);
+        mProgressPaint.setShader(mColorShader);
         RectF mArc = new RectF();
         mArc.top = -mRadius;
         mArc.bottom = mRadius;
         mArc.left = -mRadius;
         mArc.right = mRadius;
         canvas.drawArc(mArc, -90, (((mProgress * 1f) / (mTargetNum * 1f)) * 360), false, mProgressPaint);
-//        canvas.drawArc(mArc, -90, 135, false, mProgressPaint);
 
     }
 
@@ -266,7 +275,7 @@ public class RingProgressView extends View {
         RectF mMiddleTextF = new RectF();
         mMiddleTextF.bottom = (float) (mRadius * (0.3));
         mTextPaint.setTextSize((float) (mRadius * (0.3) - (-(mRadius * (0.3)))));
-        canvas.drawText(mProgress + "%", -(mTextPaint.measureText(mProgress + "") / 2), mMiddleTextF.bottom, mTextPaint);
+        canvas.drawText(mProgress + "%", -(mTextPaint.measureText(mProgress + "%") / 2), mMiddleTextF.bottom, mTextPaint);
 
         //中间数字后面的单位
         if (mDisplayPercentageSymbol) {
@@ -301,6 +310,9 @@ public class RingProgressView extends View {
      */
     private void initPaint() {
 
+        SWEEP_GRADIENT_COLORS = new int[]{ContextCompat.getColor(getContext(), R.color.blue_btn_start_color),
+                ContextCompat.getColor(getContext(), R.color.blue_btn_end_color)};
+
         mStartCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mStartCirclePaint.setColor(mStartCircleColor);
         mStartCirclePaint.setStyle(Paint.Style.FILL);
@@ -315,7 +327,7 @@ public class RingProgressView extends View {
         mRingCirclePaint.setStyle(Paint.Style.STROKE);
 
         mProgressPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mProgressPaint.setColor(mProgressColor);
+//        mProgressPaint.setColor(mProgressColor);
         mProgressPaint.setStyle(Paint.Style.STROKE);
         mProgressPaint.setStrokeCap(Paint.Cap.ROUND);
 
@@ -370,7 +382,7 @@ public class RingProgressView extends View {
                     msg.what = 1;
                     i++;
 
-                    if(mProgress >= 100){
+                    if (mProgress >= 100) {
                         return;
                     }
 

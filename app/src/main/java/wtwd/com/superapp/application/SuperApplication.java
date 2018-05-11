@@ -59,7 +59,7 @@ public class SuperApplication extends Application {
         // 初始化SDK, 仅调用一次
         XLinkSDK.init(this, config);
 
-        Toast.makeText(SuperApplication.getAppInstance(), "log file:" + XLog.getLogFilePath(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(SuperApplication.getAppInstance(), "log file:" + XLog.getLogFilePath(), Toast.LENGTH_SHORT).show();
         XLinkSDK.debugMQTT(true);
         XLinkSDK.debugGateway(true);
 
