@@ -1,5 +1,6 @@
 package wtwd.com.superapp.activity;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +25,7 @@ public class AddSweeperAlarmActivity extends BaseActivity {
 
     @Override
     public void onCreateView(Bundle saveInstanceState) {
-
+        setTitleToolbarStyle(SOLID_COLOR_TITLE, ContextCompat.getColor(this, R.color.colorWhite));
         findViewById(R.id.btn_commit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

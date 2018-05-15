@@ -37,6 +37,7 @@ import com.hiflying.smartlink.SmartLinkedModule;
 import com.hiflying.smartlink.v7.MulticastSmartLinker;
 import com.hiflying.smartlink.v7.MulticastSmartLinkerActivity;
 
+import java.util.List;
 import java.util.Queue;
 
 import cn.xlink.sdk.common.StringUtil;
@@ -55,6 +56,7 @@ import wtwd.com.superapp.entity.Device;
 import wtwd.com.superapp.manager.DeviceManager;
 import wtwd.com.superapp.util.Constant;
 import wtwd.com.superapp.util.DialogUtils;
+import wtwd.com.superapp.util.PrefUtil;
 import wtwd.com.superapp.util.Utils;
 import wtwd.com.superapp.widget.RingProgressView;
 
@@ -76,6 +78,8 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
 
     private ISmartLinker mISmartLinker;
     private BroadcastReceiver mWifiChangedReceiver;
+    private String[] mWifiPassword;
+    String mWifi;
 
     @Override
     public void initToolBar(Toolbar toolbar) {
@@ -90,10 +94,11 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
 
     @Override
     public void onCreateView(Bundle saveInstanceState) {
+        setTitleToolbarStyle(SOLID_COLOR_TITLE, R.color.colorWhite);
         mConnectingDialog = new Dialog(this, R.style.MyCommonDialog);
         mISmartLinker = setupSmartLinker();
+        mWifi = PrefUtil.getStringValue(ConfigWifiActivity.this, "wifi", "");
 
-        setTitleToolbarStyle(SOLID_COLOR_TITLE, R.color.colorWhite);
 
         initView();
         addListener();
@@ -107,6 +112,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
                     editText_hiflying_smartlinker_ssid.setText(getSSid());
                     editText_hiflying_smartlinker_password.requestFocus();
                     button_hiflying_smartlinker_start.setEnabled(true);
+                    mHandler.sendEmptyMessage(2);
                 } else {
                     if (mConnectingDialog.isShowing()) {
                         mRingProgressView.setProgress(100);
@@ -356,6 +362,17 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
                 Log.e(TAG, "add device handler");
                 XDevice xDevice = (XDevice) msg.obj;
                 addDevices(xDevice);
+            } else if (2 == msg.what) {
+
+
+                mWifiPassword = mWifi.split("#");
+                for (int i = 0; i < mWifiPassword.length; i++) {
+                    if (mWifiPassword[i].contains(getSsidString())) {
+                        String[] ss = mWifiPassword[i].split(":");
+                        editText_hiflying_smartlinker_password.setText(ss[1]);
+                        return;
+                    }
+                }
             }
         }
     };
@@ -456,6 +473,13 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
         showSnackBarLong("配网成功，开始绑定设备");
 
         scan(Constant.PRODUCTID, mac);
+        for (int i = 0; i < mWifiPassword.length; i++) {
+            if (!mWifiPassword[i].contains(getSsidString())) {
+                PrefUtil.setStringValue(this, "wifi", getSsidString() + ":" + getPasswordString() + "#");
+                return;
+            }
+        }
+
 //
 //        XDevice xDevice = new XDevice();
 //        xDevice.setMacAddress(mac);

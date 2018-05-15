@@ -6,17 +6,99 @@
     android:orientation="vertical">
 
     <include layout="@layout/tool_bar" />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg"
+        />
 
     <LinearLayout
+        android:layout_marginTop="@dimen/common_34"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
 
         <wtwd.com.superapp.widget.SweeperMap
+            android:id="@+id/sweep_map"
             android:layout_width="@dimen/common_300"
-            android:layout_height="@dimen/common_300" />
+            android:layout_height="@dimen/common_300"
+
+            />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/common_20"
+        android:gravity="center"
+        >
+        <ImageView
+            android:layout_width="@dimen/common_14"
+            android:layout_height="@dimen/common_14"
+            android:background="@drawable/shape_dot_red"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_14"
+            android:textColor="@color/color_33"
+            android:text="扫地机"
+            android:layout_marginLeft="@dimen/common_2"
+            />
+
+
+        <View
+            android:layout_width="@dimen/common_14"
+            android:layout_height="@dimen/common_14"
+            android:layout_marginLeft="@dimen/common_18"
+            android:background="@color/sweep_clear"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_14"
+            android:textColor="@color/color_33"
+            android:text="已清洁"
+            android:layout_marginLeft="@dimen/common_2"
+            />
+
+        <View
+            android:layout_width="@dimen/common_14"
+            android:layout_height="@dimen/common_14"
+            android:layout_marginLeft="@dimen/common_18"
+            android:background="@color/color_e7"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_14"
+            android:textColor="@color/color_33"
+            android:text="未清洁"
+            android:layout_marginLeft="@dimen/common_2"
+            />
+
+        <View
+            android:layout_width="@dimen/common_14"
+            android:layout_height="@dimen/common_14"
+            android:layout_marginLeft="@dimen/common_18"
+            android:background="@color/red_obstacle"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_14"
+            android:textColor="@color/color_33"
+            android:text="障碍物"
+            android:layout_marginLeft="@dimen/common_2"
+            />
+
+    </LinearLayout>
+
 
 </LinearLayout>

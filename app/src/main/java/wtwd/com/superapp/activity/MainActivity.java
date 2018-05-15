@@ -8,11 +8,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +22,6 @@ import wtwd.com.superapp.fragment.MainHomeFragment;
 import wtwd.com.superapp.fragment.MainMeFragment;
 import wtwd.com.superapp.manager.DeviceManager;
 import wtwd.com.superapp.manager.UserManager;
-import wtwd.com.superapp.sweepmap.SweepMap;
 import wtwd.com.superapp.util.Utils;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener {
@@ -45,10 +42,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-
-//        SweepMap sweepMap = new SweepMap();
-//        String ss = sweepMap.getHello("Hello");
-//        Log.e("main activity", "ss : ---------> " + ss);
     }
 
     private void initView() {

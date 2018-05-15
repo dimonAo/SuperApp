@@ -245,12 +245,12 @@ public class RingProgressView extends View {
      */
     private void drawProgressArc(Canvas canvas) {
         mProgressPaint.setStrokeWidth(mProgressWidth);
-
-        Shader mColorShader = new SweepGradient(0, 0, SWEEP_GRADIENT_COLORS, null);
+        mProgressPaint.setColor(ContextCompat.getColor(getContext(),R.color.blue_btn_start_color));
+//        Shader mColorShader = new SweepGradient(0, 0, SWEEP_GRADIENT_COLORS, null);
 //        Matrix matrix = new Matrix();
 //        matrix.postRotate(0.5f);
 //        mColorShader.setLocalMatrix(matrix);
-        mProgressPaint.setShader(mColorShader);
+//        mProgressPaint.setShader(mColorShader);
         RectF mArc = new RectF();
         mArc.top = -mRadius;
         mArc.bottom = mRadius;

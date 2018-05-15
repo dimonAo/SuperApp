@@ -19,6 +19,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +42,7 @@ import wtwd.com.superapp.eventbus.DataPointUpdateEvent;
 import wtwd.com.superapp.eventbus.UpdateListEvent;
 import wtwd.com.superapp.manager.DeviceManager;
 import wtwd.com.superapp.manager.UserManager;
+import wtwd.com.superapp.sweepmap.SweepMap;
 import wtwd.com.superapp.util.Constant;
 import wtwd.com.superapp.util.Utils;
 
@@ -220,8 +222,8 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
         super.onStart();
         Log.e("TAG", "MainFamily fragment onstart");
         EventBus.getDefault().register(this);
-//                login(Constant.PREF_KEY_COM_ID, "", "cminyan@waterworld.com.cn", "wtwd123456");
-        login(Constant.PREF_KEY_COM_ID, "", "zxiaobin@waterworld.com.cn", "Wtwd123456");
+        login(Constant.PREF_KEY_COM_ID, "", "cminyan@waterworld.com.cn", "wtwd123456");
+//        login(Constant.PREF_KEY_COM_ID, "", "zxiaobin@waterworld.com.cn", "Wtwd123456");
     }
 
     @Override

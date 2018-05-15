@@ -7,9 +7,14 @@ import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import wtwd.com.superapp.R;
+import wtwd.com.superapp.entity.SweepMapEntity;
 
 /**
  * Created by Administrator on 2018/5/10 0010.
@@ -20,6 +25,12 @@ public class SweeperMap extends View {
      * 背景格子画笔
      */
     private Paint mBgpaint;
+
+
+    private Paint mSweeppaint;
+    private Paint mSweepDevicepaint;
+
+    ArrayList<SweepMapEntity> list = new ArrayList<>();
 
     /**
      * 视图宽高
@@ -47,6 +58,12 @@ public class SweeperMap extends View {
         mBgpaint.setStrokeWidth(0);
 
 
+        mSweeppaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mSweeppaint.setStyle(Paint.Style.FILL);
+
+        mSweepDevicepaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mSweepDevicepaint.setStyle(Paint.Style.FILL);
+        mSweepDevicepaint.setColor(ContextCompat.getColor(getContext(), R.color.blue_sweep_device));
     }
 
 
@@ -60,6 +77,12 @@ public class SweeperMap extends View {
         float mMin = Math.min(mWidth, mHeight);
         canvas.drawColor(ContextCompat.getColor(getContext(), R.color.color_f3));
         drawBg(canvas, mMin);
+
+        canvas.translate(mMin / 2, mMin / 2);
+
+        float lenght = mMin / 110;
+
+        drawSweepRange(canvas, lenght);
 
 
     }
@@ -75,8 +98,66 @@ public class SweeperMap extends View {
             }
         }
 
+    }
+
+    private int max;
+
+    private void drawSweepRange(Canvas canvas, float lenght) {
+        Log.e("Draw Sweep Range", "list size : " + list.size());
+        Log.e("Draw Sweep Range", "list size : " + list.toString());
+
+        if (list.size() <= 0) {
+            return;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            SweepMapEntity mEn = list.get(i);
+            //判断你是否是障碍碰撞
+            if (mEn.isBumper()) {
+                mSweeppaint.setColor(ContextCompat.getColor(getContext(), R.color.red_obstacle));
+            } else {
+                max = i;
+                mSweeppaint.setColor(ContextCompat.getColor(getContext(), R.color.sweep_clear));
+
+            }
+
+            canvas.drawRect(mEn.getX() * lenght, -mEn.getY() * lenght, (mEn.getX() + 1) * lenght, (-mEn.getY() + 1) * lenght, mSweeppaint);
+
+//            if (!mEn.isBumper()) {
+//                canvas.drawCircle(mEn.getX()*lenght + lenght / 2, -mEn.getY()*lenght + lenght / 2, 2 * lenght, mSweepDevicepaint);
+//            }
+
+            Log.e("Draw Sweep Range", "list size : [" + i + "] : " + mEn.toString());
+        }
+        canvas.drawCircle(list.get(max).getX() * lenght + lenght / 2, -list.get(max).getY() * lenght + lenght / 2, 2 * lenght, mSweepDevicepaint);
+
 
     }
 
+    private void drawSweeper(Canvas canvas) {
+
+    }
+
+
+    public void setSweepList(ArrayList<SweepMapEntity> lists) {
+        Log.e("TAG", "sweep list size : ==> " + lists.size());
+        if (lists.isEmpty()) {
+            list.clear();
+        } else {
+            list.clear();
+            list.addAll(lists);
+            invalidate();
+        }
+//        postInvalidate();
+    }
+
+
+    public void addSweepList(ArrayList<SweepMapEntity> lists) {
+        if (lists.isEmpty()) {
+            return;
+        }
+        list.addAll(lists);
+        postInvalidate();
+    }
 
 }

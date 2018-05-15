@@ -111,11 +111,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void setTitleToolbarStyle(int type, int colorId) {
-
 //        Utils.StatusBarLightMode(this);
 //        Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(this), 0, 0);
         if (type == PURE_PICTURE_TITLE) {
-//            Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(this), 0, 0);
+            Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(this), 0, 0);
             changeTitleBarColor();
         } else if (type == SOLID_COLOR_TITLE) {
             tool_bar.setBackgroundColor(ContextCompat.getColor(this, colorId));

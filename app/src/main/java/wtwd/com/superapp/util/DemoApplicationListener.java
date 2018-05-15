@@ -12,6 +12,7 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.xlink.sdk.common.XLog;
@@ -28,14 +29,18 @@ import cn.xlink.sdk.v5.module.main.XLinkErrorCode;
 import cn.xlink.sdk.v5.module.main.XLinkSDK;
 import cn.xlink.sdk.v5.module.notify.EventNotifyHelper;
 import cn.xlink.sdk.v5.module.share.XLinkHandleShareDeviceTask;
+import okhttp3.internal.Util;
 import wtwd.com.superapp.R;
 import wtwd.com.superapp.activity.MainActivity;
+import wtwd.com.superapp.application.SuperApplication;
 import wtwd.com.superapp.base.BaseActivity;
 import wtwd.com.superapp.entity.Device;
+import wtwd.com.superapp.entity.SweepMapEntity;
 import wtwd.com.superapp.eventbus.DataPointUpdateEvent;
 import wtwd.com.superapp.eventbus.UpdateListEvent;
 import wtwd.com.superapp.manager.DeviceManager;
 import wtwd.com.superapp.manager.UserManager;
+import wtwd.com.superapp.sweepmap.SweepMap;
 
 /**
  * Created by CHENJIAHUI on 2017/2/25.
@@ -44,11 +49,13 @@ import wtwd.com.superapp.manager.UserManager;
 
 public class DemoApplicationListener implements XLinkDataListener, XLinkUserListener, XLinkCloudListener, XLinkDeviceStateListener {
     private static final String TAG = "MyXLinkListener";
-
+    private SuperApplication mInstance;
     WeakReference<Application> mContext;
     WeakReference<BaseActivity> mCurrentBaseActivity;
+    private int maxId;
 
     public DemoApplicationListener(Application app) {
+        mInstance = (SuperApplication) app;
         mContext = new WeakReference<>(app);
         initLifeObservable(app);
     }
@@ -291,6 +298,8 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
         });
     }
 
+    private int model;
+
     @Override
     public void onDataPointUpdate(XDevice xDevice, List<XLinkDataPoint> list) {
         // 当SDK收到设备上报的数据端点时，会回调这个方法。
@@ -301,12 +310,57 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
                 XLinkDataPoint data = device.getDataPointByIndex(dataPoint.getIndex(), dataPoint.getType());
                 if (data != null) {
                     data.setValue(dataPoint.getValue());
+
+                    if (1 == data.getIndex()) {
+                        int mm = ((Byte) dataPoint.getValue()) & 0xff;
+                        if (!(model == mm)) {
+                            mInstance.setSweepList(new ArrayList<SweepMapEntity>());
+                            model = mm;
+                        }
+                    }
+
+                    if (11 == data.getIndex()) {
+                        setMapData(data);
+                    }
                 }
             }
         }
         //通知界面进行UI变更
         EventBus.getDefault().post(new DataPointUpdateEvent());
     }
+
+    private void setMapData(XLinkDataPoint data) {
+
+        byte[] a = (byte[]) data.getValue();
+
+        String hexs = Utils.bytesToHexString(a);
+
+        int hexId = Integer.parseInt(hexs.substring(0, 4), 16);
+        if (maxId > hexId) {
+            return;
+        }
+        maxId = hexId;
+
+        int coordinateCount = Integer.parseInt(hexs.substring(4, 6), 16);
+
+        SweepMap mSweepMap = new SweepMap();
+
+        for (int i = 0; i < coordinateCount; i += 14) {
+            String mDeviceCoordinate = hexs.substring(6 + i, 6 + ((i + 1) * 14));
+
+            String mDeviceCollision = mDeviceCoordinate.substring(0, 2);
+            String mDeviceX = mDeviceCoordinate.substring(2, 6);
+            String mDeviceY = mDeviceCoordinate.substring(6, 10);
+            String mDeviceDirecton = mDeviceCoordinate.substring(10, 14);
+
+            int collision = Integer.parseInt(mDeviceCollision, 16);
+            float x = (float) Integer.parseInt(mDeviceX, 16);
+            float y = (float) Integer.parseInt(mDeviceY, 16);
+            float direction = (float) Integer.parseInt(mDeviceDirecton, 16);
+            mInstance.setSweepList(mSweepMap.getSweepArray(x, y, direction, collision));
+        }
+    }
+
 
     @Override
     public void onDeviceStateChanged(XDevice xDevice, XDevice.State state) {

@@ -31,11 +31,16 @@
     <color name="blue_btn_start_color">#77b1f9</color>
     <color name="blue_btn_end_color">#5187eb</color>
     <color name="blue_btn_press">#2267e6</color>
+    <color name="blue_sweep_device">#62a1f9</color>
 
     <color name="red_btn_delete">#f44b4b</color>
+    <color name="red_obstacle">#f44141</color>
     <color name="red_btn_delete_press">#7ff44b4b</color>
 
     <color name="color_f3">#f3f3f3</color>
     <color name="color_ee">#eeeeee</color>
+    <color name="color_e7">#E7E7E7</color>
+
+    <color name="sweep_clear">#acd598</color>
 
 </resources>

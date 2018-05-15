@@ -48,6 +48,7 @@ import wtwd.com.superapp.base.BaseActivity;
 import wtwd.com.superapp.entity.Device;
 import wtwd.com.superapp.eventbus.DataPointUpdateEvent;
 import wtwd.com.superapp.manager.DeviceManager;
+import wtwd.com.superapp.sweepmap.SweepMap;
 import wtwd.com.superapp.util.DialogUtils;
 import wtwd.com.superapp.util.Utils;
 
@@ -103,10 +104,6 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void initToolBar(Toolbar toolbar) {
-//        toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorSweeperText));
-//        Utils.setWindowStatusBarColor(this, R.color.colorSweeperText);
-//        Utils.setStatusBarColor(this,R.color.colorSweeperText);
-//        Utils.setMargins(toolbar, 0, Utils.getStatusBarHeight(this), 0, 0);
         setTitleToolbarStyle(SOLID_COLOR_TITLE, R.color.colorSweeperText);
 
         text_tool_bar_title.setText("扫地机器人");
@@ -219,10 +216,6 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
         mDirectionButton.add(btn_down);
         mDirectionButton.add(btn_left);
 
-//        updateText(BTN_AUTO);
-//        updateStrongMode(BTN_CLOSE);
-//        setClearState(false);
-
         addListener();
     }
 
@@ -239,13 +232,9 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
         btn_standard.setOnClickListener(this);
         btn_strong.setOnClickListener(this);
 
-        btn_left.setOnClickListener(mButtonTouchListener);
         btn_left.setOnTouchListener(mButtonTouchListener);
-        btn_right.setOnClickListener(mButtonTouchListener);
         btn_right.setOnTouchListener(mButtonTouchListener);
-        btn_down.setOnClickListener(mButtonTouchListener);
         btn_down.setOnTouchListener(mButtonTouchListener);
-        btn_top.setOnClickListener(this);
         btn_top.setOnTouchListener(mButtonTouchListener);
 
         img_btn_center.setOnClickListener(this);
@@ -253,7 +242,9 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
         lin_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                readyGo(SweeperDetailMapActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("device", mDevice.getXDevice().getMacAddress());
+                readyGo(SweeperDetailMapActivity.class, bundle);
             }
         });
 
@@ -272,6 +263,15 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void displaySweeperStatus(List<XLinkDataPoint> dataPoints) {
+        Log.e(TAG, "dataPoints :----> " + dataPoints.toString());
+        if (!(!operationModel && !operationFan && !operationSwitch)) {
+            if (!check(dataPoints)) {
+                Log.e(TAG, "djhfklakjsdfjaldfla");
+                return;
+            }
+        }
+
+
         for (int i = 0; i < dataPoints.size(); i++) {
             resolveProtocol(dataPoints.get(i));
         }
@@ -293,42 +293,35 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                  *7: 充电完成
                  */
                 int status = ((Byte) dataPoint.getValue()) & 0xff;
+                Log.e(TAG, "case 0 status : ===> " + status);
                 String mClearState = "";
-                switch (status) {
-                    case 0:
-                        mClearState = "待机";
-                        break;
-                    case 1:
-                        mClearState = "工作中";
-                        break;
+                if (status == 0) {
+                    mClearState = "待机";
 
-                    case 2:
-                        mClearState = "待机";
-                        break;
+                } else if (status == 1) {
+                    mClearState = "工作中";
 
-                    case 3:
-                        mClearState = "故障";
-                        break;
+                } else if (status == 2) {
+                    mClearState = "待机";
 
-                    case 4:
-                        mClearState = "休眠";
-                        break;
+                } else if (status == 3) {
+                    mClearState = "故障";
 
-                    case 5:
-                        mClearState = "工作完成";
-                        break;
+                } else if (status == 4) {
+                    mClearState = "休眠";
 
-                    case 6:
-                        mClearState = "充电";
-                        break;
+                } else if (status == 5) {
+                    mClearState = "工作完成";
 
-                    case 7:
-                        mClearState = "充电完成";
-                        break;
-//
-//                    case 8:
-//                        mClearState = "";
-//                        break;
+                } else if (status == 6) {
+                    mClearState = "充电";
+
+                } else if (status == 7) {
+                    mClearState = "充电完成";
+
+                } else if (status == 8) {
+                    mClearState = "暂停";
+
                 }
                 clear_state.setText(mClearState);
 
@@ -373,6 +366,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                         break;
                     case 5:
                         updateText(4);
+
                         break;
                     case 6:
                         updateText(5);
@@ -509,48 +503,20 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
                 break;
 
-            case 11:
-                if (null == dataPoint.getValue()) {
-                    Log.e(TAG, "datapoints getIndex 11 null");
-                    return;
-                }
-                Log.e(TAG, "datapoints getIndex 11");
-//                byte[] b = ObjectToByte(dataPoint.getValue());
-                Log.e(TAG, "datapoints getIndex : " + dataPoint.getValue().toString().length());
-                Log.e(TAG, "datapoints getIndex : " + convertStringToHex(dataPoint.getValue().toString()));
-
-//                Log.e(TAG, "datapoints asciiToString : " + asciiToString(dataPoint.getValue().toString()));
-//
-////                String str = dataPoint.getValue().toString();
-////                Log.e(TAG, "convertStringToHex : ----> " + convertStringToHex(str));
-//                Log.e(TAG, "convertStringToHex : ----> " + bytesToHexFun2(b));
-
-
-                break;
+//            case 11:
+////                if (null == dataPoint.getValue()) {
+////                    Log.e(TAG, "datapoints getIndex 11 null");
+////                    return;
+////                }
+////
+////                byte[] a = (byte[]) dataPoint.getValue();
+//////
+////                Log.e(TAG, "Arrays.toString(ObjectToByte(dataPoint.getValue())) : ==> " + Arrays.toString(a));
+////                Log.e(TAG, "Arrays.toString  bytesToHexString : ==> " + (bytesToHexString(a)));
+////
+////
+//                break;
         }
-    }
-
-
-    /**
-     * asc "" --> hex 0xxx
-     *
-     * @param str
-     * @return
-     */
-    public String convertStringToHex(String str) {
-
-        char[] chars = str.toCharArray();
-
-        StringBuffer hex = new StringBuffer();
-        for (int i = 0; i < chars.length; i++) {
-            hex.append(Integer.toHexString((int) chars[i]));
-            if (i < chars.length - 1) {
-                hex.append(",");
-            }
-
-        }
-
-        return hex.toString();
     }
 
 
@@ -645,7 +611,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     private static final int BTN_RIGHT = 1;
     private static final int BTN_DOWN = 2;
     private static final int BTN_LEFT = 3;
-
+    private boolean mManuallyControll;
 
     @Override
     public void onClick(View v) {
@@ -655,6 +621,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
             return;
         }
 
+        mManuallyControll = true;
         int id = v.getId();
 
         int index = 1;
@@ -667,7 +634,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 updateText(BTN_PLANNED);
                 index = 1;
                 value = (byte) 2;
-
+                operationModel = true;
 //                setDataPoint(1, DataPointValueType.BYTE, (byte) 2);
                 break;
             case R.id.btn_fix_point:
@@ -675,6 +642,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 updateText(BTN_FIX_POINT);
                 index = 1;
                 value = (byte) 4;
+                operationModel = true;
 //                setDataPoint(1, DataPointValueType.BYTE, (byte) 4);
                 break;
 
@@ -683,6 +651,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 updateText(BTN_SIDE);
                 index = 1;
                 value = (byte) 3;
+                operationModel = true;
 //                setDataPoint(1, DataPointValueType.BYTE, (byte) 3);
                 break;
 
@@ -692,6 +661,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 updateText(BTN_AUTO);
                 index = 1;
                 value = (byte) 8;
+                operationModel = true;
 //                setDataPoint(1, DataPointValueType.BYTE, (byte) 8);
                 break;
             case R.id.btn_mop:
@@ -699,15 +669,23 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 updateText(BTN_MOP);
                 index = 1;
                 value = (byte) 5;
-
+                operationModel = true;
 
 //                setDataPoint(1, DataPointValueType.BYTE, (byte) 5);
                 break;
             case R.id.btn_recharge:
-                updateStrongMode(BTN_CLOSE);
-                updateText(BTN_RECHARGE);
-                index = 1;
-                value = (byte) 6;
+                if (((byte) 6 == ((Byte) mDevice.getDataPoints().get(0).getValue() & 0xff))
+                        || ((byte) 7 == (((Byte) mDevice.getDataPoints().get(0).getValue() & 0xff)))) {
+                    index = 1;
+                    value = (byte) 6;
+                    updateText(BTN_RECHARGE);
+                } else {
+                    updateStrongMode(BTN_CLOSE);
+                    updateText(BTN_RECHARGE);
+                    index = 1;
+                    value = (byte) 6;
+                    operationModel = true;
+                }
 //                setDataPoint(1, DataPointValueType.BYTE, (byte) 6);
                 break;
 
@@ -720,6 +698,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 updateStrongMode(BTN_CLOSE);
                 index = 4;
                 value = (byte) 3;
+                operationFan = true;
 //                setDataPoint(4, DataPointValueType.BYTE, (byte) 3);
                 break;
             case R.id.btn_standard:
@@ -729,6 +708,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 updateStrongMode(BTN_STANDARD);
                 index = 4;
                 value = (byte) 1;
+                operationFan = true;
 //                setDataPoint(4, DataPointValueType.BYTE, (byte) 1);
                 break;
             case R.id.btn_strong:
@@ -738,6 +718,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                 updateStrongMode(BTN_STRONG);
                 index = 4;
                 value = (byte) 2;
+                operationFan = true;
 //                setDataPoint(4, DataPointValueType.BYTE, (byte) 2);
                 break;
 
@@ -760,6 +741,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 //                break;
 
             case R.id.img_btn_center:
+
                 if (img_btn_center.isSelected()) {
 //                    img_btn_center.setSelected(false);
                     setClearState(false);
@@ -773,6 +755,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                     value = (byte) 1;
 //                    setDataPoint(5, DataPointValueType.BYTE, (byte) 2);
                 }
+                operationSwitch = true;
                 break;
 
 //            case R.id.img_tool_bar_right:
@@ -780,6 +763,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 //                break;
         }
 
+        operationValue = value;
         setDataPoint(index, DataPointValueType.BYTE, value);
 
     }
@@ -823,9 +807,9 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     private void setClearState(boolean isSelected) {
         img_btn_center.setSelected(isSelected);
         if (isSelected) {
-//            clear_state.setText("清扫中");
+//            clear_state.setText("工作中");
         } else {
-//            clear_state.setText("暂停");
+//            clear_state.setText("待机");
             for (int i = 0; i < mDirectionButton.size(); i++) {
                 mDirectionButton.get(i).setSelected(false);
                 mDirectionButton.get(i).setTextColor(ContextCompat.getColor(this, R.color.colorSweeperTextUnselected));
@@ -913,9 +897,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onError(XLinkErrorCode xLinkErrorCode) {
                         Log.d(TAG, "onError() called with: xLinkErrorCode = [" + xLinkErrorCode + "]" + " + " + dp);
-//                        if (getContext() != null) {
-//                            Toast.makeText(DemoApplication.getAppInstance(), index + " | " + type + " | " + xLinkErrorCode.toString(), Toast.LENGTH_SHORT).show();
-//                        }
+
                     }
 
                     @Override
@@ -925,9 +907,8 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onComplete(XDevice xDevice) {
                         Log.d(TAG, "onComplete() called with: = [" + dp + "]");
-                        mDevice.setDataPointByIndex(dp);
-
-                        EventBus.getDefault().post(new DataPointUpdateEvent());
+//                        mDevice.setDataPointByIndex(dp);
+//                        EventBus.getDefault().post(new DataPointUpdateEvent());
                     }
                 })
                 .build();
@@ -945,25 +926,15 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onError(XLinkErrorCode errorCode) {
                         Log.e(TAG, "XLinkProbeTask onError() called with: errorCode = [" + errorCode + "]");
-//                        if (getView() != null) {
-//                            getView().dismissLoading();
-//                            Toast.makeText(DemoApplication.getAppInstance(), "拉取失败：" + errorCode.toString(), Toast.LENGTH_SHORT).show();
-//                        }
                     }
 
                     @Override
                     public void onStart() {
                         Log.e(TAG, "XLinkProbeTask onStart() called");
-//                        if (getView() != null) {
-//                            getView().showLoading();
-//                        }
                     }
 
                     @Override
                     public void onComplete(List<XLinkDataPoint> dataPoints) {
-//                        if (getView() != null) {
-//                            getView().dismissLoading();
-//                        }
                         Log.e(TAG, "XLinkProbeTask onComplete() called with: result = [" + dataPoints + "]");
 
                         XLinkDataPoint mPont = new XLinkDataPoint(11, DataPointValueType.STRING);
@@ -978,9 +949,6 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                         });
 
                         displaySweeperStatus(dataPoints);
-//                        if (getView() != null) {
-//                            getView().refreshAdapter();
-//                        }
                     }
                 })
                 .build();
@@ -990,8 +958,6 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDataPointUpdateEvent(DataPointUpdateEvent event) {
-//        Log.e(TAG, "event bus get data : " + mDevice.getDataPoints().toString());
-        Log.e(TAG, "event bus get data : ");
         displaySweeperStatus(mDevice.getDataPoints());
     }
 
@@ -1022,118 +988,144 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
 
     private class ButtonTouchListener implements
-            View.OnClickListener,
             View.OnTouchListener {
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.btn_left:
-                    break;
-                case R.id.btn_right:
-                    break;
-                case R.id.btn_down:
-                    break;
-            }
-        }
+//        @Override
+//        public void onClick(View v) {
+//            switch (v.getId()) {
+//                case R.id.btn_left:
+//                    break;
+//                case R.id.btn_right:
+//                    break;
+//                case R.id.btn_down:
+//                    break;
+//            }
+//        }
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
 
             if (XDevice.State.CONNECTED != mDevice.getXDevice().getCloudConnectionState()) {
-//            showSnackBarLong("设备未连接");
                 DialogUtils.showWifiStateDialog(SweeperActivity.this, mOnLineStateDialog, getString(R.string.wifi_off_line));
                 return true;
             }
 
             int index = 0;
             byte value = 0;
-            switch (v.getId()) {
 
-                case R.id.btn_top:
-                    if (MotionEvent.ACTION_DOWN == event.getAction()) {
-                        Log.e(TAG, "left down");
-                        btn_top.setSelected(true);
-                        index = 3;
-                        value = (byte) 1;
-                        setDataPoint(index, DataPointValueType.BYTE, value);
-                    }
+            if (MotionEvent.ACTION_DOWN == event.getAction()) {
 
-                    if (MotionEvent.ACTION_UP == event.getAction()) {
-                        Log.e(TAG, "left up");
-                        btn_top.setSelected(false);
-                        index = 3;
-                        value = (byte) 0;
-                        setDataPoint(index, DataPointValueType.BYTE, value);
-                    }
+//                setClearState(true);
+//                updateStrongMode(BTN_STANDARD);
+                switch (v.getId()) {
+                    case R.id.btn_top:
+                        if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                            operationSi = true;
+                            btn_top.setSelected(true);
+                            index = 3;
+                            value = (byte) 1;
+                            setDataPoint(index, DataPointValueType.BYTE, value);
+                        }
+                        break;
 
+                    case R.id.btn_left:
+                        if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                            operationSi = true;
+                            btn_left.setSelected(true);
+                            index = 3;
+                            value = (byte) 3;
+                            setDataPoint(index, DataPointValueType.BYTE, value);
+                        }
+                        break;
 
-                    break;
+                    case R.id.btn_right:
+                        if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                            operationSi = true;
+                            btn_right.setSelected(true);
+                            index = 3;
+                            value = (byte) 4;
+                            setDataPoint(index, DataPointValueType.BYTE, value);
+                        }
+                        break;
 
+                    case R.id.btn_down:
+                        if (MotionEvent.ACTION_DOWN == event.getAction()) {
+                            operationSi = true;
+                            btn_down.setSelected(true);
+                            index = 3;
+                            value = (byte) 2;
+                            setDataPoint(index, DataPointValueType.BYTE, value);
+                        }
+                        break;
+                }
 
-                case R.id.btn_left:
-                    if (MotionEvent.ACTION_DOWN == event.getAction()) {
-                        Log.e(TAG, "left down");
-                        btn_left.setSelected(true);
-                        index = 3;
-                        value = (byte) 3;
-                        setDataPoint(index, DataPointValueType.BYTE, value);
-                    }
+                updateStrongMode(BTN_STANDARD);
 
-                    if (MotionEvent.ACTION_UP == event.getAction()) {
-                        Log.e(TAG, "left up");
-                        btn_left.setSelected(false);
-                        index = 3;
-                        value = (byte) 0;
-                        setDataPoint(index, DataPointValueType.BYTE, value);
-                    }
-
-                    break;
-
-                case R.id.btn_right:
-                    if (MotionEvent.ACTION_DOWN == event.getAction()) {
-                        Log.e(TAG, "right down");
-                        btn_right.setSelected(true);
-                        index = 3;
-                        value = (byte) 4;
-                        setDataPoint(index, DataPointValueType.BYTE, value);
-                    }
-
-                    if (MotionEvent.ACTION_UP == event.getAction()) {
-                        Log.e(TAG, "right up");
-                        btn_right.setSelected(false);
-                        index = 3;
-                        value = (byte) 0;
-                        setDataPoint(index, DataPointValueType.BYTE, value);
-                    }
-
-                    break;
-
-                case R.id.btn_down:
-                    if (MotionEvent.ACTION_DOWN == event.getAction()) {
-                        Log.e(TAG, "down down");
-                        btn_down.setSelected(true);
-                        index = 3;
-                        value = (byte) 2;
-                        setDataPoint(index, DataPointValueType.BYTE, value);
-                    }
-
-                    if (MotionEvent.ACTION_UP == event.getAction()) {
-                        Log.e(TAG, "down up");
-                        btn_down.setSelected(false);
-                        index = 3;
-                        value = (byte) 0;
-                        setDataPoint(index, DataPointValueType.BYTE, value);
-                    }
-                    break;
-
+            } else if (MotionEvent.ACTION_UP == event.getAction()) {
+                Log.e(TAG, "left up");
+//                setClearState(false);
+                operationSi = true;
+                btn_top.setSelected(false);
+                btn_down.setSelected(false);
+                btn_left.setSelected(false);
+                btn_right.setSelected(false);
+                index = 3;
+                value = (byte) 5;
+                setDataPoint(index, DataPointValueType.BYTE, value);
+//                updateStrongMode(BTN_CLOSE);
             }
 
-            Log.e(TAG, "on touch ");
-
-
+            operationValue = value;
             return true;
         }
+    }
+
+
+    private boolean operationModel, operationFan, operationSwitch, operationSi;
+    private byte operationValue;
+
+
+    /**
+     * 以本地数据为标准，除index=11地图数据以外，判断服务器返回数据是否为需要的数据，不是则丢掉
+     *
+     * @param dataPoints
+     */
+    private boolean check(List<XLinkDataPoint> dataPoints) {
+
+        /**
+         * 判断当前是否为手动切换模式
+         */
+//
+//        Log.e(TAG, "operationModel : " + operationModel);
+//        Log.e(TAG, "operationFan : " + operationFan);
+//        Log.e(TAG, "operationSwitch : " + operationSwitch);
+//        Log.e(TAG, "operationValue : -------->" + operationValue);
+//        Log.e(TAG, "operationValue1 : =========>" + (((Byte) dataPoints.get(1).getValue()) & 0xff));
+//        Log.e(TAG, "operationValue2 : =========>" + (((Byte) dataPoints.get(4).getValue()) & 0xff));
+//        Log.e(TAG, "operationValue3 : =========>" + (((Byte) dataPoints.get(5).getValue()) & 0xff));
+
+        if (operationModel) {
+            if (operationValue == (((Byte) dataPoints.get(1).getValue()) & 0xff)) {
+                operationModel = false;
+                return true;
+            }
+        } else if (operationFan) {
+            if (operationValue == (((Byte) dataPoints.get(4).getValue()) & 0xff)) {
+                operationFan = false;
+                return true;
+            }
+        } else if (operationSwitch) {
+            if (operationValue == (((Byte) dataPoints.get(5).getValue()) & 0xff)) {
+                operationSwitch = false;
+                return true;
+            }
+        } else if (operationSi) {
+            if (operationValue == (((Byte) dataPoints.get(3).getValue()) & 0xff)) {
+                operationSi = false;
+                return true;
+            }
+        }
+        return false;
     }
 
 

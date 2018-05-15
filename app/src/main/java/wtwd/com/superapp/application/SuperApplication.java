@@ -4,12 +4,16 @@ import android.animation.Animator;
 import android.app.Application;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import cn.xlink.sdk.common.XLog;
 import cn.xlink.sdk.v5.manager.XLinkUser;
 import cn.xlink.sdk.v5.module.main.XLinkConfig;
 import cn.xlink.sdk.v5.module.main.XLinkSDK;
+import wtwd.com.superapp.entity.SweepMapEntity;
 import wtwd.com.superapp.manager.DeviceManager;
 import wtwd.com.superapp.manager.UserManager;
+import wtwd.com.superapp.sweepmap.SweepMap;
 import wtwd.com.superapp.util.DemoApplicationListener;
 import wtwd.com.superapp.util.ExceptionCrashUnhandler;
 
@@ -20,6 +24,7 @@ import wtwd.com.superapp.util.ExceptionCrashUnhandler;
 public class SuperApplication extends Application {
 
     private static SuperApplication sInstance;
+    private ArrayList<SweepMapEntity> mSweepList = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -82,5 +87,21 @@ public class SuperApplication extends Application {
     public static SuperApplication getAppInstance() {
         return sInstance;
     }
+
+
+
+    public void setSweepList(ArrayList<SweepMapEntity> list) {
+        if (list.isEmpty()) {
+            mSweepList.clear();
+        } else {
+            mSweepList.clear();
+            mSweepList.addAll(list);
+        }
+    }
+
+    public ArrayList<SweepMapEntity> getSweepList() {
+        return mSweepList;
+    }
+
 
 }

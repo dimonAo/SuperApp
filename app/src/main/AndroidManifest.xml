@@ -34,8 +34,6 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ConfigWifiActivity"
-            android:configChanges="mcc|mnc|locale|keyboard|keyboardHidden|navigation|orientation|screenSize|fontScale"
-            android:label="MulticastSmartLinkerActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ChooseDeviceTypeActivity"
