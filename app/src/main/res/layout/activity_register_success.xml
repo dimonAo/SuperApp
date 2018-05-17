@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/index_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="wtwd.com.superapp.activity.RegisterSuccessActivity">
+
+    <include layout="@layout/tool_bar" />
+
+    <ImageView
+        android:id="@+id/img_register_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_54"
+        android:background="@mipmap/phone_register_success"
+        android:contentDescription="register_type" />
+
+    <TextView
+        android:id="@+id/text_congratulation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_26"
+        android:gravity="center"
+        android:textColor="@color/color_33"
+        android:textSize="@dimen/text_14" />
+
+    <TextView
+        android:id="@+id/text_time_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_26"
+        android:gravity="center"
+        android:textColor="@color/color_99"
+        android:textSize="@dimen/text_12" />
+</LinearLayout>

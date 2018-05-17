@@ -2,6 +2,7 @@ package wtwd.com.superapp.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
@@ -12,6 +13,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import cn.xlink.sdk.v5.model.XLinkDataPoint;
+import okhttp3.internal.Util;
 import wtwd.com.superapp.R;
 import wtwd.com.superapp.application.SuperApplication;
 import wtwd.com.superapp.base.BaseActivity;
@@ -54,6 +56,7 @@ public class SweeperDetailMapActivity extends BaseActivity {
         String mac = getTargetDeviceMacAddress();
         if (null != mac) {
             mDevice = DeviceManager.getInstance().getDevice(mac);
+            Log.e("TAG", "mDevice : " + mDevice);
         }
 
         text_tool_bar_title.setText("工作详情");
@@ -118,10 +121,12 @@ public class SweeperDetailMapActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onDataPointUpdateEvent(DataPointUpdateEvent event) {
+//        Log.e("TAG", "sweeper detail map activity : " + mDevice.getDataPoints().size());
         for (int i = 0; i < mDevice.getDataPoints().size(); i++) {
+//            Log.e("TAG", "sweeper detail map index : " + mDevice.getDataPoints().get(i).getIndex());
             if (11 == mDevice.getDataPoints().get(i).getIndex()) {
                 //解析协议
-
+//                Log.e("TAG", "sweeper detail map activity" + mDevice.getDataPoints().get(i));
                 setMapData(mDevice.getDataPoints().get(i));
 //                sweep_map.addSweepList();
             }
@@ -137,7 +142,7 @@ public class SweeperDetailMapActivity extends BaseActivity {
         String hexs = Utils.bytesToHexString(a);
 
         int hexId = Integer.parseInt(hexs.substring(0, 4), 16);
-        if (maxId > hexId) {
+        if (maxId >= hexId) {
             return;
         }
         maxId = hexId;
@@ -146,8 +151,9 @@ public class SweeperDetailMapActivity extends BaseActivity {
 
         SweepMap mSweepMap = new SweepMap();
 
-        for (int i = 0; i < coordinateCount; i += 14) {
-            String mDeviceCoordinate = hexs.substring(6 + i, 6 + ((i + 1) * 14));
+        for (int i = 0; i < coordinateCount; i++) {
+            int ab = i * 14;
+            String mDeviceCoordinate = hexs.substring(6 + ab, 6 + ((i + 1) * 14));
 
             String mDeviceCollision = mDeviceCoordinate.substring(0, 2);
             String mDeviceX = mDeviceCoordinate.substring(2, 6);
@@ -155,12 +161,16 @@ public class SweeperDetailMapActivity extends BaseActivity {
             String mDeviceDirecton = mDeviceCoordinate.substring(10, 14);
 
             int collision = Integer.parseInt(mDeviceCollision, 16);
-            float x = (float) Integer.parseInt(mDeviceX, 16);
-            float y = (float) Integer.parseInt(mDeviceY, 16);
-            float direction = (float) Integer.parseInt(mDeviceDirecton, 16);
+            float x = (Utils.parseHex4(mDeviceX) / 1000f);
+            float y = (Utils.parseHex4(mDeviceY) / 1000f);
+            float direction = (Utils.parseHex4(mDeviceDirecton) / 1000f);
             ArrayList<SweepMapEntity> list = mSweepMap.getSweepArray(x, y, direction, collision);
-            mApplicaton.setSweepList(list);
+            Log.e("TAG", "sweep detail map data direction : " + x + ":" + y + ":" + direction + ":" + collision);
+            Log.e("TAG", "sweep detail map data direction : " + list.toString());
+//            mApplicaton.setSweepList(list);
+//            if (!list.isEmpty()) {
             sweep_map.addSweepList(list);
+//            }
         }
     }
 

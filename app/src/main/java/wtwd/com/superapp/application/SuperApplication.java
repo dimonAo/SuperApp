@@ -89,18 +89,17 @@ public class SuperApplication extends Application {
     }
 
 
-
     public void setSweepList(ArrayList<SweepMapEntity> list) {
-        if (list.isEmpty()) {
-            mSweepList.clear();
+        if (null == list) {
+            this.mSweepList.clear();
         } else {
-            mSweepList.clear();
-            mSweepList.addAll(list);
+//            mSweepList.clear();
+            this.mSweepList.addAll(list);
         }
     }
 
     public ArrayList<SweepMapEntity> getSweepList() {
-        return mSweepList;
+        return this.mSweepList;
     }
 
 

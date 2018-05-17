@@ -99,9 +99,6 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
     private Dialog mOnLineStateDialog;
 
-    private static final char[] HEX_CHAR = {'0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-
     @Override
     public void initToolBar(Toolbar toolbar) {
         setTitleToolbarStyle(SOLID_COLOR_TITLE, R.color.colorSweeperText);
@@ -123,7 +120,6 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onCreateView(Bundle saveInstanceState) {
-        EventBus.getDefault().register(this);
         mButtonTouchListener = new ButtonTouchListener();
         mOnLineStateDialog = new Dialog(this, R.style.MyCommonDialog);
         initView();
@@ -131,8 +127,27 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    protected void onDestroy() {
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         EventBus.getDefault().unregister(this);
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
         XLinkSDK.getDeviceManager().removeDeviceStateListener(this);
         super.onDestroy();
     }
@@ -262,13 +277,26 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
     }
 
+    private int count;
+
     private void displaySweeperStatus(List<XLinkDataPoint> dataPoints) {
         Log.e(TAG, "dataPoints :----> " + dataPoints.toString());
-        if (!(!operationModel && !operationFan && !operationSwitch)) {
+        if (!(!operationModel && !operationFan && !operationSwitch && !operationSi)) {
             if (!check(dataPoints)) {
+                count++;
+
+                if (3 == count) {
+                    operationModel = false;
+                    operationFan = false;
+                    operationSwitch = false;
+                    operationSi = false;
+                    count = 0;
+                }
                 Log.e(TAG, "djhfklakjsdfjaldfla");
                 return;
             }
+        } else {
+            count = 0;
         }
 
 
@@ -937,9 +965,9 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                     public void onComplete(List<XLinkDataPoint> dataPoints) {
                         Log.e(TAG, "XLinkProbeTask onComplete() called with: result = [" + dataPoints + "]");
 
-                        XLinkDataPoint mPont = new XLinkDataPoint(11, DataPointValueType.STRING);
-                        dataPoints.add(mPont);
-                        mDevice.setDataPoints(dataPoints);
+//                        XLinkDataPoint mPont = new XLinkDataPoint(11, DataPointValueType.BYTE_ARRAY);
+//                        dataPoints.add(mPont);
+//                        mDevice.setDataPoints(dataPoints);
 
                         Collections.sort(mDevice.getDataPoints(), new Comparator<XLinkDataPoint>() {
                             @Override
@@ -949,6 +977,8 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
                         });
 
                         displaySweeperStatus(dataPoints);
+                        DeviceManager.getInstance().getDevice(mDevice.getXDevice().getMacAddress())
+                                .setDataPoints(dataPoints);
                     }
                 })
                 .build();

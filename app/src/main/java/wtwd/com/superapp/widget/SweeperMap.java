@@ -103,8 +103,8 @@ public class SweeperMap extends View {
     private int max;
 
     private void drawSweepRange(Canvas canvas, float lenght) {
-        Log.e("Draw Sweep Range", "list size : " + list.size());
-        Log.e("Draw Sweep Range", "list size : " + list.toString());
+        Log.e("Draw Sweep Range", "drawSweepRange list size : " + list.size());
+//        Log.e("Draw Sweep Range", "list size : " + list.toString());
 
         if (list.size() <= 0) {
             return;
@@ -127,7 +127,7 @@ public class SweeperMap extends View {
 //                canvas.drawCircle(mEn.getX()*lenght + lenght / 2, -mEn.getY()*lenght + lenght / 2, 2 * lenght, mSweepDevicepaint);
 //            }
 
-            Log.e("Draw Sweep Range", "list size : [" + i + "] : " + mEn.toString());
+//            Log.e("Draw Sweep Range", "list size : [" + i + "] : " + mEn.toString());
         }
         canvas.drawCircle(list.get(max).getX() * lenght + lenght / 2, -list.get(max).getY() * lenght + lenght / 2, 2 * lenght, mSweepDevicepaint);
 
@@ -140,12 +140,12 @@ public class SweeperMap extends View {
 
 
     public void setSweepList(ArrayList<SweepMapEntity> lists) {
-        Log.e("TAG", "sweep list size : ==> " + lists.size());
+        Log.e("TAG", "setSweepList : ==> " + lists.size());
         if (lists.isEmpty()) {
-            list.clear();
+            this.list.clear();
         } else {
-            list.clear();
-            list.addAll(lists);
+            this.list.clear();
+            this.list.addAll(lists);
             invalidate();
         }
 //        postInvalidate();
@@ -153,11 +153,12 @@ public class SweeperMap extends View {
 
 
     public void addSweepList(ArrayList<SweepMapEntity> lists) {
+        Log.e("TAG", "addSweepList : " + lists.size());
         if (lists.isEmpty()) {
             return;
         }
-        list.addAll(lists);
-        postInvalidate();
+        this.list.addAll(lists);
+        invalidate();
     }
 
 }

@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -383,6 +384,77 @@ public class Utils {
             hexChars[j * 2 + 1] = sHexArray[v & 0x0F];
         }
         return new String(hexChars);
+    }
+
+    public static int getUint16(int i) {
+        return i & 0x0000ffff;
+    }
+
+
+    public static short parseHex4(String numHex) {
+        if (numHex.length() != 4) {
+            throw new NumberFormatException("Wrong length: " + numHex.length() + ", must be 4.");
+        }
+        int ret = Integer.parseInt(numHex, 16);
+        if ((ret >>> 15) > 0) {
+            ret = -(~ret+1);
+        }
+//            else {
+//                System.out.println(ret & 0x7fff);
+//            }
+        return (short) ret;
+    }
+
+
+    /**
+     * 验证账号是否正确
+     */
+    public static boolean checkAccount(String account) {
+        return checkEmail(account) || checkPhoneNumber(account);
+    }
+
+    /**
+     * 验证邮箱格式
+     */
+    public static boolean checkEmail(String email) {
+        if (TextUtils.isEmpty(email)) {
+            return false;
+        }
+
+        if (email.length() > 30) {
+            return false;
+        }
+
+        boolean flag;
+        try {
+            String check = "^([a-z0-9A-Z]+[-|_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+            Pattern regex = Pattern.compile(check);
+            Matcher matcher = regex.matcher(email);
+            flag = matcher.matches();
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
+    }
+
+    /**
+     * 验证手机号码格式
+     */
+    public static boolean checkPhoneNumber(String phoneNumber) {
+        if (TextUtils.isEmpty(phoneNumber)) {
+            return false;
+        }
+
+        boolean flag;
+        try {
+            String check = "^[1][3|5|7|8][0-9]{9}$";
+            Pattern regex = Pattern.compile(check);
+            Matcher matcher = regex.matcher(phoneNumber);
+            flag = matcher.matches();
+        } catch (Exception e) {
+            flag = false;
+        }
+        return flag;
     }
 
 

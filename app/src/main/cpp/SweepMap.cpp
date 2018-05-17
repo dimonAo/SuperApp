@@ -59,7 +59,7 @@ Java_wtwd_com_superapp_sweepmap_SweepMap_getSweepArray(JNIEnv *env, jobject obje
 
 
     //1.创建MapUpdate对象
-    MapUpdate map_update(0.2, 80, 80, -8.0f, -8.0f, 0.1);
+    MapUpdate map_update(0.2, 110, 110, -11.0f, -11.0f, 0.1);
     SensorType sensor;
     //模拟数据
 //    float x = 0, y = 0, yaw = 0.5;                       /**< 接收到的坐标 */

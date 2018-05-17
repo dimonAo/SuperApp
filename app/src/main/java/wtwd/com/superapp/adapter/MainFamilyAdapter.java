@@ -38,7 +38,7 @@ public class MainFamilyAdapter extends BaseQuickAdapter<Device, BaseViewHolder> 
 //                break;
 //
 //            case 4:
-        helper.setBackgroundRes(R.id.img_device_type, R.drawable.main_sweeper_select);
+        helper.setBackgroundRes(R.id.img_device_type, R.mipmap.sweeper_icon);
 //                break;
 //
 //            case 5:

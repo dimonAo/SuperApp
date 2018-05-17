@@ -35,7 +35,7 @@
             android:background="@color/colorWhite"
             android:drawableTop="@drawable/main_home_selected"
             android:padding="@dimen/common_6"
-            android:text="房间"
+            android:text="场景"
             android:textSize="@dimen/text_10" />
 
         <Button

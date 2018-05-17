@@ -25,7 +25,7 @@ public class AddSweeperAlarmActivity extends BaseActivity {
 
     @Override
     public void onCreateView(Bundle saveInstanceState) {
-        setTitleToolbarStyle(SOLID_COLOR_TITLE, ContextCompat.getColor(this, R.color.colorWhite));
+        setTitleToolbarStyle(SOLID_COLOR_TITLE,R.color.colorWhite);
         findViewById(R.id.btn_commit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

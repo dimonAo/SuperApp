@@ -382,18 +382,18 @@ public class RingProgressView extends View {
                     msg.what = 1;
                     i++;
 
-                    if (mProgress >= 100) {
+                    if (RingProgressView.this.mProgress >= 100) {
                         return;
                     }
 
 
                     if (i < (((mCurrentNum * 1f) / (mTargetNum * 1f)) * 100f)) {
-                        mProgress = (int) (i * mTargetNum / 100f);
+                        RingProgressView.this.mProgress = (int) (i * mTargetNum / 100f);
                     } else {
-                        mProgress = mCurrentNum;
+                        RingProgressView.this.mProgress = mCurrentNum;
 
                     }
-                    msg.obj = mProgress;
+                    msg.obj = RingProgressView.this.mProgress;
                     circleHandler.sendMessage(msg);
 
 //                    if ((i >= (((mCurrentNum * 1f) / (mTargetNum * 1f)) * 100f)) || (mProgress == mCurrentNum)) {

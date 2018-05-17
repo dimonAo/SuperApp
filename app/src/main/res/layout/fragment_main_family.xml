@@ -5,16 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--android:background="@mipmap/main_family_has_device_bg"-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/main_family_has_device_bg"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@drawable/shape_main_page_title"
             android:orientation="vertical">
 
             <android.support.v7.widget.Toolbar
@@ -27,46 +28,55 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
-                        android:id="@+id/img_family_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:background="@mipmap/my_family" />
-
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/common_2"
-                        android:layout_toRightOf="@id/img_family_icon"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="我的家庭"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="@dimen/text_12" />
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_vertical">
 
                         <ImageView
+                            android:id="@+id/img_family_icon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/arrow_right" />
-                    </LinearLayout>
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/my_family" />
 
-                    <LinearLayout
-                        android:id="@+id/lin_add"
-                        android:layout_width="?attr/actionBarSize"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center">
-
-                        <ImageView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@mipmap/main_family_add" />
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/common_2"
+                            android:layout_toRightOf="@id/img_family_icon"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="我的家庭"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/text_12" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common_2"
+                                android:background="@mipmap/arrow_right" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lin_add"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:gravity="center"
+                            android:visibility="invisible">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@mipmap/main_family_add" />
+                        </LinearLayout>
                     </LinearLayout>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
@@ -81,7 +91,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="@dimen/common_8"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -152,11 +163,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_above="@id/lin_air"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/common_58"
                         android:layout_centerInParent="true">
 
                         <TextView
@@ -217,6 +229,82 @@
 
                     </RelativeLayout>
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/common_40"
+                        android:layout_marginLeft="@dimen/common_12"
+                        android:background="@color/colorWhite" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/common_50"
+                        android:layout_marginLeft="@dimen/common_12">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@mipmap/main_air_quality" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common_12"
+                                android:text="空气良"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/text_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common_8"
+                                android:text="63"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/text_12" />
+
+                        </LinearLayout>
+
+                        <!--<View-->
+                        <!--android:layout_width="1px"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:background="@color/colorWhite" />-->
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@mipmap/main_air_humidity" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common_12"
+                                android:text="相对湿度"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/text_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/common_8"
+                                android:text="54"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="@dimen/text_12" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -227,6 +315,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
+            android:background="@color/index_bg"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
@@ -235,6 +324,7 @@
                 android:layout_marginLeft="@dimen/common_8"
                 android:layout_marginRight="@dimen/common_8"
                 android:alpha="0.9"
+                android:visibility="gone"
                 app:cardCornerRadius="@dimen/common_4"
                 app:cardElevation="@dimen/common_2">
 
@@ -334,12 +424,71 @@
 
             </android.support.v7.widget.CardView>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_36"
+                android:background="@color/colorWhite">
+
+                <ImageView
+                    android:id="@+id/img_room_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/common_8"
+                    android:background="@mipmap/main_room_manager" />
+
+                <View
+                    android:id="@+id/view_vertical_line"
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/common_8"
+                    android:layout_marginRight="@dimen/common_8"
+                    android:layout_marginTop="@dimen/common_8"
+                    android:layout_toLeftOf="@id/img_room_set"
+                    android:background="@color/color_99" />
+
+                <!--<android.support.design.widget.TabLayout-->
+                <!--android:id="@+id/tab_layout_room"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="@dimen/common_16"-->
+                <!--android:layout_marginRight="@dimen/common_16"-->
+                <!--android:layout_toLeftOf="@id/view_vertical_line"-->
+                <!--app:tabMode="scrollable"-->
+                <!--/>-->
+
+                <com.flyco.tablayout.SlidingTabLayout
+                    android:id="@+id/tl_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/common_16"
+                    android:layout_marginRight="@dimen/common_16"
+                    android:layout_toLeftOf="@id/view_vertical_line"
+                    app:tl_indicator_color="@color/colorMainBottomTextSelect"
+                    app:tl_indicator_height="@dimen/common_2"
+                    app:tl_indicator_width_equal_title="true"
+                    app:tl_tab_space_equal="false"
+                    app:tl_textSelectColor="@color/color_33"
+                    app:tl_textUnselectColor="@color/color_33"
+                    app:tl_textsize="@dimen/text_14"
+                    app:tl_underline_color="@color/transparent"
+                    app:tl_underline_height="@dimen/common_2" />
+            </RelativeLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager_room"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_device"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/common_8"
-                android:layout_marginTop="@dimen/common_4" />
+                android:layout_marginTop="@dimen/common_4"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

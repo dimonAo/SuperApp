@@ -59,6 +59,9 @@ public class Constant {
     public static final int TIMER_MAX = 19;
 
 
+    public static final String URL = "https://api2.xlink.cn:443";
+    public static final String CHECK_VERIFY_CODE = URL+"/v2/user/verifycode/verify";
+
 
 
 

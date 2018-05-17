@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import cn.xlink.sdk.common.XLog;
@@ -31,6 +32,7 @@ import cn.xlink.sdk.v5.module.notify.EventNotifyHelper;
 import cn.xlink.sdk.v5.module.share.XLinkHandleShareDeviceTask;
 import okhttp3.internal.Util;
 import wtwd.com.superapp.R;
+import wtwd.com.superapp.activity.LoginActivity;
 import wtwd.com.superapp.activity.MainActivity;
 import wtwd.com.superapp.application.SuperApplication;
 import wtwd.com.superapp.base.BaseActivity;
@@ -55,7 +57,7 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
     private int maxId;
 
     public DemoApplicationListener(Application app) {
-        mInstance = (SuperApplication) app;
+        mInstance = SuperApplication.getAppInstance();
         mContext = new WeakReference<>(app);
         initLifeObservable(app);
     }
@@ -306,6 +308,8 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
         Log.e(TAG, "onDataPointUpdate() called with: " + "xDevice = [" + xDevice.getMacAddress() + "], list = [" + list + "]");
         Device device = DeviceManager.getInstance().getDevice(xDevice.getMacAddress());
         if (device != null) {
+
+
             for (XLinkDataPoint dataPoint : list) {
                 XLinkDataPoint data = device.getDataPointByIndex(dataPoint.getIndex(), dataPoint.getType());
                 if (data != null) {
@@ -314,12 +318,13 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
                     if (1 == data.getIndex()) {
                         int mm = ((Byte) dataPoint.getValue()) & 0xff;
                         if (!(model == mm)) {
-                            mInstance.setSweepList(new ArrayList<SweepMapEntity>());
+                            mInstance.setSweepList(null);
                             model = mm;
                         }
                     }
 
                     if (11 == data.getIndex()) {
+                        Log.e(TAG, "data index map data : ==> " + Arrays.toString((byte[]) data.getValue()));
                         setMapData(data);
                     }
                 }
@@ -334,9 +339,10 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
         byte[] a = (byte[]) data.getValue();
 
         String hexs = Utils.bytesToHexString(a);
+        Log.e(TAG, "map data : " + hexs);
 
         int hexId = Integer.parseInt(hexs.substring(0, 4), 16);
-        if (maxId > hexId) {
+        if (maxId >= hexId) {
             return;
         }
         maxId = hexId;
@@ -345,18 +351,27 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
 
         SweepMap mSweepMap = new SweepMap();
 
-        for (int i = 0; i < coordinateCount; i += 14) {
-            String mDeviceCoordinate = hexs.substring(6 + i, 6 + ((i + 1) * 14));
+        for (int i = 0; i < coordinateCount; i++) {
+
+            int ab = i*14;
+
+            String mDeviceCoordinate = hexs.substring(6 + ab, 6 + ((i + 1) * 14));
 
             String mDeviceCollision = mDeviceCoordinate.substring(0, 2);
             String mDeviceX = mDeviceCoordinate.substring(2, 6);
+            String mmDevice = mDeviceX.substring(2, mDeviceX.length()) + mDeviceX.substring(0, 2);
+
+
             String mDeviceY = mDeviceCoordinate.substring(6, 10);
             String mDeviceDirecton = mDeviceCoordinate.substring(10, 14);
 
             int collision = Integer.parseInt(mDeviceCollision, 16);
-            float x = (float) Integer.parseInt(mDeviceX, 16);
-            float y = (float) Integer.parseInt(mDeviceY, 16);
-            float direction = (float) Integer.parseInt(mDeviceDirecton, 16);
+            float x = (Utils.parseHex4(mDeviceX) / 1000f);
+            float y = (Utils.parseHex4(mDeviceY) / 1000f);
+            float direction = (Utils.parseHex4(mDeviceDirecton) / 1000f);
+//            ArrayList<SweepMapEntity> list = mSweepMap.getSweepArray(x/1000f, y/1000f, direction/1000f, collision);
+            Log.e(TAG, "map data direction : " + x + ":" + y + ":" + direction + ":" + collision);
+
             mInstance.setSweepList(mSweepMap.getSweepArray(x, y, direction, collision));
         }
     }
@@ -433,7 +448,7 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
                 UserManager.getInstance().logout();
                 DeviceManager.getInstance().clear();
                 //跳转登录页面
-                Intent intent = new Intent(mContext.get(), MainActivity.class);
+                Intent intent = new Intent(mContext.get(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 mContext.get().startActivity(intent);
 

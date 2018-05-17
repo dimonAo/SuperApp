@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -52,10 +52,24 @@
         <activity
             android:name=".activity.SweeperSetActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.SweeperDetailMapActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ChooseRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PhoneRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NewPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.EmailRegisterActivity" />
+        <activity android:name=".activity.RegisterSuccessActivity"></activity>
     </application>
 
 </manifest>

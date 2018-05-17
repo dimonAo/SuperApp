@@ -96,7 +96,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             BaseFragment fragment = fragments.get(i);
             if (i == position) {
                 buttons.get(i).setSelected(true);
-                buttons.get(i).setTextColor(ContextCompat.getColor(this, R.color.colorMainAtyBottomTextSelect));
+                buttons.get(i).setTextColor(ContextCompat.getColor(this, R.color.colorMainBottomTextSelect));
 
                 transaction.show(fragment);
             } else {

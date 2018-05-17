@@ -4,14 +4,14 @@
     <item android:state_pressed="false">
         <shape>
             <gradient android:endColor="@color/blue_btn_end_color" android:startColor="@color/blue_btn_start_color" />
-            <corners android:radius="@dimen/common_6" />
+            <corners android:radius="@dimen/common_2" />
         </shape>
     </item>
 
     <item android:state_pressed="true">
         <shape>
             <solid android:color="@color/blue_btn_press" />
-            <corners android:radius="@dimen/common_6" />
+            <corners android:radius="@dimen/common_2" />
         </shape>
     </item>
 

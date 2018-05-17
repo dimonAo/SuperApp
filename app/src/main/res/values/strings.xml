@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">SuperApp</string>
 
     <string name="hiflying_smartlinker_password"> </string>
@@ -12,4 +12,16 @@
     <string name="hiflying_config_wifi">手机没有连接Wifi\n无法为设备配网</string>
     <string name="connect_wifi_success">连接成功!   开启您的智能生活~</string>
     <string name="wifi_off_line">设备已离线，请检查设备的Wifi连接是否正常</string>
+
+    <string name="error_account_invalid">邮箱<xliff:g example="abc@example.com">%1$s</xliff:g>暂未激活，请激活再登录！</string>
+    <string name="error_account_or_pwd_invalid">账号或密码错误，请再次确认账号与密码的一致性！</string>
+    <string name="error_email_none_register"><xliff:g example="abc@example.com">%1$s</xliff:g>邮箱暂未注册，请注册再登录！</string>
+    <string name="error_phone_none_register">手机号<xliff:g example="13800013800">%1$s</xliff:g>暂未注册，请注册再登录！</string>
+    <string name="error_login_failure">登录失败</string>
+    <string name="error_third_login">登录失败，请重试！</string>
+    <string name="prompt_invaild_input">输入不合法</string>
+    <string name="register_verify_code_text">重新发送</string>
+    <string name="register_retest">%dS</string>
+    <string name="register_success">%d秒后跳到登录页面</string>
+
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.Message;
 import android.view.Display;
 import android.view.Gravity;
@@ -36,6 +37,34 @@ public class DialogUtils {
 
         mDialog.show();
         setDialogMaxheightLayoutParams(mActivity, mDialog);
+
+    }
+
+    public static void showTextDialog(Activity mActivity, final Dialog mDialog, String content) {
+        View view = LayoutInflater.from(mActivity).inflate(R.layout.dialog_device_off_line, null, false);
+
+        TextView text_dialog_alarm = (TextView) view.findViewById(R.id.text_dialog_alarm);
+        text_dialog_alarm.setText(content);
+
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.setContentView(view);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mDialog.isShowing()) {
+                    mDialog.dismiss();
+                }
+            }
+        }, 1000);
+
+        if (mDialog.isShowing()) {
+            mDialog.dismiss();
+        }
+
+
+        mDialog.show();
+        setDialogMaxheightLayoutParams1(mActivity, mDialog);
 
     }
 
@@ -115,11 +144,11 @@ public class DialogUtils {
 
 
 //        if (p.height > (d.getHeight() * 0.4)) {
-        p.height = (int) (d.getHeight() * 0.4);
-//        }
-        p.width = (int) (d.getWidth() * 0.75);
+//        p.height = (int) (d.getHeight() * 0.4);
+////        }
+//        p.width = (int) (d.getWidth() * 0.75);
         p.gravity = Gravity.CENTER;
-        p.y = 0; //设置Dialog与底部的margin值，与左右一致
+//        p.y = 0; //设置Dialog与底部的margin值，与左右一致
 
         //设置Dialog本身透明度
 //        p.alpha = 0.5f;

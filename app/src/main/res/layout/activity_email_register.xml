@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/index_bg"
+    android:orientation="vertical"
+    tools:context="wtwd.com.superapp.activity.EmailRegisterActivity">
+
+    <include layout="@layout/tool_bar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_42"
+        android:layout_marginRight="@dimen/common_42"
+        android:layout_marginTop="@dimen/common_36"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_32"
+            android:background="@drawable/shape_login_edit_frame">
+
+            <!--<TextView-->
+            <!--android:id="@+id/text_login_country_code"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginLeft="@dimen/common_4"-->
+            <!--android:layout_marginRight="@dimen/common_4"-->
+            <!--android:gravity="center"-->
+            <!--android:text="中国 +86"-->
+            <!--android:textColor="@color/color_33"-->
+            <!--android:textSize="@dimen/text_14" />-->
+
+            <EditText
+                android:id="@+id/edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/common_4"
+                android:background="@null"
+                android:hint="邮箱"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/color_33"
+                android:textColorHint="@color/color_99"
+                android:textSize="@dimen/text_14" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_32"
+            android:layout_marginTop="@dimen/common_18"
+            android:background="@drawable/shape_login_edit_frame"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/common_4"
+                android:background="@null"
+                android:hint="请输入初始密码"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/color_33"
+                android:textColorHint="@color/color_99"
+                android:textSize="@dimen/text_14" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_32"
+            android:layout_marginTop="@dimen/common_18"
+            android:background="@drawable/shape_login_edit_frame"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_register_password_again"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/common_4"
+                android:background="@null"
+                android:hint="请再次输入密码"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLength="25"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/color_33"
+                android:textColorHint="@color/color_99"
+                android:textSize="@dimen/text_14" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_36"
+        android:layout_marginLeft="@dimen/common_42"
+        android:layout_marginRight="@dimen/common_42"
+        android:layout_marginTop="@dimen/common_44"
+        android:background="@drawable/btn_wifi_selector"
+        android:gravity="center"
+        android:text="注册"
+        android:textColor="@color/colorWhite_fb"
+        android:textSize="@dimen/text_18" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/common_14"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册即同意"
+            android:textColor="@color/color_66"
+            android:textSize="@dimen/text_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户协议及隐私条款"
+            android:textColor="@color/login_blue_text_color"
+            android:textSize="@dimen/text_12" />
+    </LinearLayout>
+
+
+</LinearLayout>

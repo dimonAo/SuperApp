@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="wtwd.com.superapp.activity.ChooseRegisterActivity">
+
+    <include layout="@layout/tool_bar" />
+
+
+    <RelativeLayout
+        android:id="@+id/relative_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        android:layout_marginLeft="@dimen/common_42"
+        android:layout_marginRight="@dimen/common_42"
+        android:layout_marginTop="@dimen/common_76"
+        android:background="@drawable/btn_wifi_selector">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_22"
+            android:background="@mipmap/register_phone"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="手机号注册"
+            android:textColor="@color/colorWhite_fb"
+            android:textSize="@dimen/text_16" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_email"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        android:layout_marginLeft="@dimen/common_42"
+        android:layout_marginRight="@dimen/common_42"
+        android:layout_marginTop="@dimen/common_36"
+        android:background="@drawable/btn_wifi_selector">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_22"
+            android:background="@mipmap/register_email"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="邮箱注册"
+            android:textColor="@color/colorWhite_fb"
+            android:textSize="@dimen/text_16" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

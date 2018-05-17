@@ -74,4 +74,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.zhy:okhttputils:2.6.2'
+    implementation project(':FlycoTabLayout_Lib')
 }

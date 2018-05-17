@@ -205,7 +205,12 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
             public void onClick(View v) {
 
                 if (TextUtils.isEmpty(getSSid())) {
-                    showSnackBarLong("手机未连接Wifi");
+                    showSnackBarLong("手机未连接WIFI");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(getPasswordString().trim())) {
+                    showSnackBarLong("未填写WIFI密码");
                     return;
                 }
 
@@ -229,15 +234,17 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
         });
     }
 
+    TextView text_dialog_title;
+
     private void showConnectingWifiDialog(Activity mActivity, final Dialog mDialog, String content) {
         View view = LayoutInflater.from(mActivity).inflate(R.layout.dialog_connecting_wifi, null, false);
-        TextView text_dialog_title = (TextView) view.findViewById(R.id.text_dialog_title);
+        text_dialog_title = (TextView) view.findViewById(R.id.text_dialog_title);
         ImageView img_dismiss_dialog = (ImageView) view.findViewById(R.id.img_dismiss_dialog);
         mRingProgressView = (RingProgressView) view.findViewById(R.id.ring_circle);
         mRingProgressView.setCurrentNumAndTargetNum(100, 100);
         text_dialog_title.setText(content);
 
-        mDialog.setCanceledOnTouchOutside(true);
+        mDialog.setCanceledOnTouchOutside(false);
         mDialog.setContentView(view);
 
         img_dismiss_dialog.setOnClickListener(new View.OnClickListener() {
@@ -386,6 +393,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
                     @Override
                     public void onError(XLinkErrorCode xLinkErrorCode) {
                         Log.d(TAG, "subscribe device fail: " + device.getMacAddress() + " -> " + xLinkErrorCode);
+                        text_dialog_title.setText("绑定失败");
                         mSubscribing = false;
                         //连接成功完成
                         if (mConnectingDialog.isShowing()) {
@@ -407,7 +415,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
                     public void onComplete(XDevice xDevice) {
                         // 订阅成功
                         Log.e(TAG, "subscribe device successfully: " + xDevice.getMacAddress());
-
+                        text_dialog_title.setText("绑定成功");
                         //连接成功完成
                         if (mConnectingDialog.isShowing()) {
                             mRingProgressView.setProgress(100);
@@ -469,6 +477,7 @@ public class ConfigWifiActivity extends BaseActivity implements OnSmartLinkListe
     @Override
     public void onCompleted() {
 
+        text_dialog_title.setText("开始绑定");
 
         showSnackBarLong("配网成功，开始绑定设备");
 

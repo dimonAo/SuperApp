@@ -82,6 +82,13 @@ public class UserManager {
         PrefUtil.clear(context, Constant.class, "PREF_KEY", new String[]{Constant.PREF_KEY_ACCOUNT, Constant.PREF_KEY_CORP_ID, Constant.PREF_KEY_PRODUCT_ID});
     }
 
+    public void setPassword(String password) {
+        PrefUtil.setStringValue(getContext(), "PREF_PASSWORD", password);
+    }
+
+    public String getPassword() {
+        return PrefUtil.getStringValue(getContext(), "PREF_PASSWORD", "");
+    }
 
     private static class LazyHolder {
         private static final UserManager INSTANCE = new UserManager();

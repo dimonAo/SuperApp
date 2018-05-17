@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_14"
-            android:text="Wifi默认为手机当前连接的Wifi"
+            android:text="WIFI默认为手机当前连接的WIFI"
             android:textColor="@color/blue_text"
             android:textSize="@dimen/text_12" />
     </LinearLayout>

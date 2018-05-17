@@ -17,6 +17,7 @@
 
     <color name="colorMainAtyBottomTextSelect">#17bbc1</color>
     <color name="colorMainAtyBottomTextDefault">#7c7c7c</color>
+    <color name="colorMainBottomTextSelect">#3970f3</color>
 
     <color name="colorMainMiddleText">#373737</color>
     <color name="colorSweeperText">#22c3d5</color>
@@ -33,6 +34,7 @@
     <color name="blue_btn_press">#2267e6</color>
     <color name="blue_sweep_device">#62a1f9</color>
 
+
     <color name="red_btn_delete">#f44b4b</color>
     <color name="red_obstacle">#f44141</color>
     <color name="red_btn_delete_press">#7ff44b4b</color>
@@ -40,7 +42,12 @@
     <color name="color_f3">#f3f3f3</color>
     <color name="color_ee">#eeeeee</color>
     <color name="color_e7">#E7E7E7</color>
+    <color name="color_f7">#F7F7F7</color>
 
     <color name="sweep_clear">#acd598</color>
+
+    <!--login-->
+    <color name="login_blue_text_color">#3f77df</color>
+
 
 </resources>
