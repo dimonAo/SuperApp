@@ -78,7 +78,7 @@ public class SweeperMap extends View {
         canvas.drawColor(ContextCompat.getColor(getContext(), R.color.color_f3));
         drawBg(canvas, mMin);
 
-        canvas.translate(mMin / 2, mMin / 2);
+        canvas.translate(0, mHeight);
 
         float lenght = mMin / 110;
 

@@ -14,7 +14,56 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/common_14"
-        android:layout_marginTop="@dimen/common_16" />
+        android:layout_marginTop="@dimen/common_16"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/lin_add_remind"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|bottom">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="您还没有添加设备"
+                android:textColor="@color/color_99"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btn_add_device"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_36"
+                android:layout_marginLeft="@dimen/common_44"
+                android:layout_marginRight="@dimen/common_44"
+                android:background="@drawable/btn_main_add_device"
+                android:gravity="center"
+                android:text="添加设备"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

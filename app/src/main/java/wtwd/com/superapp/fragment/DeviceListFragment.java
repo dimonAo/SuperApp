@@ -7,7 +7,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
@@ -28,6 +30,8 @@ import wtwd.com.superapp.entity.Device;
 public class DeviceListFragment extends BaseFragment {
 
     private RecyclerView recycler_device;
+    private Button btn_add_device;
+    private LinearLayout lin_add_remind;
     private MainFamilyAdapter mAdapter;
     private List<Device> mDeviceEntirys = new ArrayList<>();
 
@@ -43,14 +47,26 @@ public class DeviceListFragment extends BaseFragment {
     }
 
     public void setData(ArrayList<Device> mDevices) {
+        if (mDevices.size() <= 0) {
+            recycler_device.setVisibility(View.GONE);
+            lin_add_remind.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        recycler_device.setVisibility(View.VISIBLE);
+        lin_add_remind.setVisibility(View.GONE);
+
         mDeviceEntirys.clear();
         mDeviceEntirys.addAll(mDevices);
         mAdapter.notifyDataSetChanged();
+
     }
 
     @Override
     public void initFragmentView(View mView) {
         recycler_device = (RecyclerView) mView.findViewById(R.id.recycler_device);
+        btn_add_device = (Button) mView.findViewById(R.id.btn_add_device);
+        lin_add_remind = (LinearLayout) mView.findViewById(R.id.lin_add_remind);
 
         mAdapter = new MainFamilyAdapter(R.layout.item_main_family_device_display, mDeviceEntirys);
 
@@ -81,7 +97,6 @@ public class DeviceListFragment extends BaseFragment {
         });
         mAdapter.setFooterViewAsFlow(true);
         mAdapter.setFooterView(view);
-
 
     }
 }

@@ -16,8 +16,8 @@
             android:id="@+id/img_device_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_14"
-            android:layout_marginTop="@dimen/common_14"
+            android:layout_marginBottom="@dimen/common_16"
+            android:layout_marginTop="@dimen/common_16"
             android:background="@mipmap/add_device" />
 
         <LinearLayout

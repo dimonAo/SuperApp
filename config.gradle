@@ -7,5 +7,5 @@ ext {
     APPCOMPAT_VERSION = "26.1.0"
 
     VERSION_CODE = 1
-    VERSION_NAME = "V0.15"
+    VERSION_NAME = "V0.16"
 }

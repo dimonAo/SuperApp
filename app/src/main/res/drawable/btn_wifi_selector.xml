@@ -3,7 +3,10 @@
 
     <item android:state_pressed="false">
         <shape>
-            <gradient android:endColor="@color/blue_btn_end_color" android:startColor="@color/blue_btn_start_color" />
+            <gradient android:endColor="@color/blue_btn_end_color"
+                android:startColor="@color/blue_btn_start_color"
+                android:angle="270"
+                />
             <corners android:radius="@dimen/common_2" />
         </shape>
     </item>
