@@ -97,7 +97,9 @@ public class DialogUtils {
                 ComponentName cn = new ComponentName("com.android.settings", "com.android.settings.wifi.WifiSettings");
                 it.setComponent(cn);
                 mActivity.startActivity(it);
-                mDialog.dismiss();
+                if (mDialog.isShowing()) {
+                    mDialog.dismiss();
+                }
             }
         });
 

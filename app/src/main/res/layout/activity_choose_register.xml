@@ -7,7 +7,14 @@
     android:orientation="vertical"
     tools:context="wtwd.com.superapp.activity.ChooseRegisterActivity">
 
-    <include layout="@layout/tool_bar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        >
+
+        <include layout="@layout/tool_bar" />
+    </LinearLayout>
 
 
     <RelativeLayout

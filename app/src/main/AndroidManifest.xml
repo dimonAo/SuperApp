@@ -69,7 +69,10 @@
             android:name=".activity.NewPasswordActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activity.EmailRegisterActivity" />
-        <activity android:name=".activity.RegisterSuccessActivity"></activity>
+        <activity android:name=".activity.RegisterSuccessActivity" />
+        <activity android:name=".activity.MeSetActivity" />
+        <activity android:name=".activity.AppointCleanActivity" />
+        <activity android:name=".activity.AppointCleanSetActivity"></activity>
     </application>
 
 </manifest>

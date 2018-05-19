@@ -9,8 +9,8 @@ android {
     buildToolsVersion ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 25
+        minSdkVersion 14
+        targetSdkVersion ANDROID_TARGET_SDK_VERSION
         versionCode 212
         versionName version
     }
@@ -24,11 +24,11 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:support-v4:25.1.0'
+//    implementation 'com.android.support:support-v4:25.1.0'
 
-//    implementation("com.android.support:support-v4:${APPCOMPAT_VERSION}", {
-//        exclude group: 'com.android.support', module: 'support-v4'
-//    })
+    implementation("com.android.support:support-v4:${APPCOMPAT_VERSION}", {
+        exclude group: 'com.android.support', module: 'support-v4'
+    })
 }
 
 //def siteUrl = 'https://github.com/H07000223'  // 项目的主页

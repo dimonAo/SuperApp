@@ -92,11 +92,19 @@ public class DeviceListFragment extends BaseFragment {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                readyGoForResult(ChooseDeviceTypeActivity.class, 100);
+                readyGo(ChooseDeviceTypeActivity.class);
             }
         });
         mAdapter.setFooterViewAsFlow(true);
         mAdapter.setFooterView(view);
+
+        btn_add_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                readyGo(ChooseDeviceTypeActivity.class);
+            }
+        });
+
 
     }
 }

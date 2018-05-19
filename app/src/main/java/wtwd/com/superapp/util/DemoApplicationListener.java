@@ -353,7 +353,7 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
 
         for (int i = 0; i < coordinateCount; i++) {
 
-            int ab = i*14;
+            int ab = i * 14;
 
             String mDeviceCoordinate = hexs.substring(6 + ab, 6 + ((i + 1) * 14));
 
@@ -455,7 +455,16 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
 //                Toast.makeText(mContext.get(), "别人登录了这个帐号或者Token过期", Toast.LENGTH_SHORT).show();
 
             case USER_LOGOUT:
-                Log.w(TAG, "USER_LOGOUT");
+                Log.e(TAG, "USER_LOGOUT");
+//                XLinkSDK.logoutAndStop();
+                // 清楚demo的用户信息
+                UserManager.getInstance().logout();
+                DeviceManager.getInstance().clear();
+                //跳转登录页面
+                Intent intent1 = new Intent(mContext.get(), LoginActivity.class);
+                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                mContext.get().startActivity(intent1);
+
                 break;
         }
     }

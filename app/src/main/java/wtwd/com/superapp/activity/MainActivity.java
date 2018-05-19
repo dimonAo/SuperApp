@@ -114,7 +114,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         int id = v.getId();
         if (R.id.btn_main_family == id) {
             changePage(MAIN_FAMILY);
-            Utils.setStatusBarColor(this, R.color.transparent);
+//            Utils.setStatusBarColor(this, R.color.transparent);
         }
 //        else if (R.id.btn_main_home == id) {
 //            changePage(MAIN_HOME);
@@ -123,10 +123,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        }
         else if (R.id.btn_main_me == id) {
             changePage(MAIN_ME);
-            Utils.setStatusBarColor(this, R.color.colorWhite);
-            if (0 == Utils.StatusBarLightMode(this)) {
-                Utils.setStatusBarColor(this, R.color.alpha_black_5);
-            }
+//            Utils.setStatusBarColor(this, R.color.colorWhite);
+//            if (0 == Utils.StatusBarLightMode(this)) {
+//                Utils.setStatusBarColor(this, R.color.alpha_black_5);
+//            }
         }
     }
 

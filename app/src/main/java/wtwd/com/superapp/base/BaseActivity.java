@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 
 import wtwd.com.superapp.R;
+import wtwd.com.superapp.util.PrefUtil;
 import wtwd.com.superapp.util.Utils;
 
 /**
@@ -110,19 +111,37 @@ public abstract class BaseActivity extends AppCompatActivity {
         return snackbar;
     }
 
+    /**
+     * 适配凡哥手机，会有一个灰色半透明的状态栏，不会修改状态栏图表的颜色
+     *
+     * @param type
+     * @param colorId
+     */
     public void setTitleToolbarStyle(int type, int colorId) {
-//        Utils.StatusBarLightMode(this);
-//        Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(this), 0, 0);
-        if (type == PURE_PICTURE_TITLE) {
-            Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(this), 0, 0);
-            changeTitleBarColor();
-        } else if (type == SOLID_COLOR_TITLE) {
-            tool_bar.setBackgroundColor(ContextCompat.getColor(this, colorId));
-            Utils.setWindowStatusBarColor(this, colorId);
-            Utils.setStatusBarColor(this, colorId);
-        }
-        Utils.StatusBarLightMode(this);
+        Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(this), 0, 0);
+        tool_bar.setBackgroundColor(ContextCompat.getColor(this, colorId));
+        changeTitleBarColor();
     }
+
+//    public void setTitleToolbarStyle(int type, int colorId) {
+////        Utils.StatusBarLightMode(this);
+////        Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(this), 0, 0);
+////        if (type == PURE_PICTURE_TITLE) {
+//        tool_bar.setBackgroundColor(ContextCompat.getColor(this, colorId));
+////        Utils.setStatusBarColor(this, colorId);
+//        Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(this), 0, 0);
+//        changeTitleBarColor();
+////        }
+////        else if (type == SOLID_COLOR_TITLE) {
+////            tool_bar.setBackgroundColor(ContextCompat.getColor(this, colorId));
+//////            Utils.setWindowStatusBarColor(this, colorId);
+////            Utils.setStatusBarColor(this, colorId);
+//////            if (R.color.colorWhite == colorId) {
+//////                Utils.StatusBarLightMode(this);
+//////            }
+////        }
+////        Utils.StatusBarLightMode(this);
+//    }
 
 
     private void changeTitleBarColor() {
@@ -207,5 +226,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         startActivityForResult(intent, requestCode);
     }
+
 
 }

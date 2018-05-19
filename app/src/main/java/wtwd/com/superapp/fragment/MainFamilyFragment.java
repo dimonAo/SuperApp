@@ -113,7 +113,7 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
 //        Utils.setStatusBarColor(getActivity(),R.color.transparent);
 //        Utils.setStatusBarColor(getActivity(),R.color.colorWhite);
         XLinkSDK.start();
-        Utils.setStatusBarColor(getActivity(), R.color.transparent);
+//        Utils.setStatusBarColor(getActivity(), R.color.transparent);
 
         for (String mTitle : mTitles) {
             mFragments.add(DeviceListFragment.getInstance(mTitle));
@@ -136,7 +136,7 @@ public class MainFamilyFragment extends BaseFragment implements View.OnClickList
         recycler_device.addItemDecoration(mItem);
         recycler_device.setAdapter(mAdapter);
 
-        displayDeviceList();
+//        displayDeviceList();
 
         addListener();
     }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_54"
+    android:orientation="vertical">
+
+    <wtwd.com.superapp.widget.swipelayout.SwipeMenuLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:contentView="@+id/content"
+        app:rightMenuView="@+id/right">
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/common_14"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_task_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="07:00"
+                    android:textColor="@color/color_33"
+                    android:textSize="@dimen/text_16" />
+
+                <TextView
+                    android:id="@+id/text_task_repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:textColor="@color/color_66"
+                    android:textSize="@dimen/text_12" />
+
+            </LinearLayout>
+
+            <wtwd.com.superapp.widget.SwitchView
+                android:layout_width="@dimen/common_36"
+                android:layout_height="@dimen/common_18"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/common_14"
+                app:hasShadow="false"
+                app:isOpened="false"
+                app:offColor="@color/color_99"
+                app:offColorDark="@color/color_99"
+                app:primaryColor="@color/blue_btn_start_color"
+                app:primaryColorDark="@color/transparent"
+                app:shadowColor="@color/color_99" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/lin_delete_clock"
+                android:layout_width="@dimen/common_52"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="删除"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_12" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </wtwd.com.superapp.widget.swipelayout.SwipeMenuLayout>
+
+</LinearLayout>

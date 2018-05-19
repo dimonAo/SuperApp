@@ -5,8 +5,14 @@
     android:background="@color/index_bg"
     android:orientation="vertical">
 
-    <include layout="@layout/tool_bar" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        >
 
+        <include layout="@layout/tool_bar" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

@@ -1,6 +1,18 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">SuperApp</string>
 
+    <string-array name="weekday">
+        <item>仅限一次</item>
+        <item>周日</item>
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+    </string-array>
+
+
     <string name="hiflying_smartlinker_password"> </string>
     <string name="hiflying_smartlinker_ssid"> </string>
     <string name="hiflying_smartlinker_start">开始</string>

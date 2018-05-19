@@ -4,7 +4,7 @@
     android:id="@+id/tool_bar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    app:background="@color/transparent">
+    app:background="@color/colorWhite">
     <TextView
         android:id="@+id/text_tool_bar_title"
         android:layout_width="wrap_content"
@@ -19,6 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="@dimen/common_14" />
+        android:layout_marginRight="@dimen/common_14"
+        android:padding="@dimen/common_8"
+        />
 
 </android.support.v7.widget.Toolbar>

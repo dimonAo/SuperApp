@@ -85,6 +85,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (R.id.btn_login == v.getId()) {
+            XLinkSDK.start();
             doLogin(Constant.PREF_KEY_COM_ID, getLoginAccount(), getLoginPassword());
         } else if (R.id.btn_register == v.getId()) {
             readyGo(ChooseRegisterActivity.class);

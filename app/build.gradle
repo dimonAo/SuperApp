@@ -17,6 +17,7 @@ android {
 
     }
 
+
     buildTypes {
         release {
             minifyEnabled false
@@ -29,12 +30,19 @@ android {
             path "CMakeLists.txt"
         }
     }
+
+    packagingOptions {//加上这写代码
+        pickFirst 'META-INF/*'
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation("com.android.support:appcompat-v7:${APPCOMPAT_VERSION}", {
         exclude group: 'com.android.support', module: 'appcompat-v7'
+    })
+    implementation("com.android.support:support-v4:${APPCOMPAT_VERSION}", {
+        exclude group: 'com.android.support', module: 'support-v4'
     })
     implementation("com.android.support:design:${APPCOMPAT_VERSION}", {
         exclude group: 'com.android.support', module: 'design'
@@ -69,11 +77,12 @@ dependencies {
     implementation files('libs/xlink_task_lib.jar')
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.legendmohe.maven:hellodaemon:1.1.5'
-    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+//    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
     implementation 'com.zhy:okhttputils:2.6.2'
     implementation project(':FlycoTabLayout_Lib')
+
 }

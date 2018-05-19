@@ -37,12 +37,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (getLayoutResourceId() != 0) {
-            changeTitleBarColor();
             View mView = inflater.inflate(getLayoutResourceId(), container, false);
             tool_bar = (Toolbar) mView.findViewById(R.id.tool_bar);
             img_tool_bar_right = (ImageView) mView.findViewById(R.id.img_tool_bar_right);
             text_tool_bar_title = (TextView) mView.findViewById(R.id.text_tool_bar_title);
-            Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(getActivity()), 0, 0);
+
 
             initFragmentView(mView);
 
@@ -56,8 +55,12 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract void initFragmentView(View mView);
 
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        Utils.setMargins(tool_bar, 0, Utils.getStatusBarHeight(getActivity()), 0, 0);
+        changeTitleBarColor();
+    }
 
     private void changeTitleBarColor() {
 
@@ -65,7 +68,7 @@ public abstract class BaseFragment extends Fragment {
             getActivity().getWindow().getDecorView().setSystemUiVisibility
                     (View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
         }
-        Utils.StatusBarLightMode(getActivity());
+//        Utils.StatusBarLightMode(getActivity());
     }
 
 

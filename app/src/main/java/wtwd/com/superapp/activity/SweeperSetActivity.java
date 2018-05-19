@@ -3,11 +3,19 @@ package wtwd.com.superapp.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Collections;
+
+import cn.xlink.sdk.core.model.DataPointValueType;
 import cn.xlink.sdk.v5.listener.XLinkTaskListener;
+import cn.xlink.sdk.v5.model.XDevice;
+import cn.xlink.sdk.v5.model.XLinkDataPoint;
+import cn.xlink.sdk.v5.module.datapoint.XLinkSetDataPointTask;
 import cn.xlink.sdk.v5.module.http.XLinkRemoveDeviceTask;
 import cn.xlink.sdk.v5.module.main.XLinkErrorCode;
 import cn.xlink.sdk.v5.module.main.XLinkSDK;
@@ -18,9 +26,12 @@ import wtwd.com.superapp.manager.DeviceManager;
 
 public class SweeperSetActivity extends BaseActivity implements View.OnClickListener {
 
+    private static final String TAG = "SweeperSetActivity";
+
     private TextView text_device_id;
     private Button btn_delete_device;
     private Device mDevice;
+    private RelativeLayout relative_position_sweeper;
 
     @Override
     public void initToolBar(Toolbar toolbar) {
@@ -35,9 +46,11 @@ public class SweeperSetActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onCreateView(Bundle saveInstanceState) {
-
+        setTitleToolbarStyle(SOLID_COLOR_TITLE, R.color.colorWhite);
         text_device_id = (TextView) findViewById(R.id.text_device_id);
         btn_delete_device = (Button) findViewById(R.id.btn_delete_device);
+
+        relative_position_sweeper = (RelativeLayout) findViewById(R.id.relative_position_sweeper);
 
         addListener();
 
@@ -67,6 +80,7 @@ public class SweeperSetActivity extends BaseActivity implements View.OnClickList
 
     private void addListener() {
         btn_delete_device.setOnClickListener(this);
+        relative_position_sweeper.setOnClickListener(this);
     }
 
 
@@ -79,6 +93,9 @@ public class SweeperSetActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         if (R.id.btn_delete_device == v.getId()) {
             doRemoveDevice();
+        } else if (R.id.relative_position_sweeper == v.getId()) {
+            //寻找扫地机
+            setDataPoint(9, DataPointValueType.BYTE, (byte) 1);
         }
     }
 
@@ -110,6 +127,61 @@ public class SweeperSetActivity extends BaseActivity implements View.OnClickList
                 })
                 .build();
         XLinkSDK.startTask(removeDeviceTask);
+    }
+
+
+    /**
+     * 调用XLINKSDK修改数据端点
+     * 注意DataPoint的type和value要对应上
+     * <p>
+     * //  public enum ValueType {
+     * //                  // 对应的Java基本数据类型
+     * //      BOOL,       // Boolean
+     * //      BYTE,       // Byte
+     * //      SHORT,      // Short
+     * //      USHORT,     // Short
+     * //      INT,        // Integer
+     * //      UINT,       // Integer
+     * //      LONG,       // Long
+     * //      ULONG,      // Long
+     * //      FLOAT,      // Float
+     * //      DOUBLE,     // Double
+     * //      STRING,     // String
+     * //      BYTE_ARRAY, // byte[]
+     * //  }
+     *
+     * @param index DataPoint的index
+     * @param type  DataPoint的数据类型，见上表
+     * @param value 要设置的值
+     */
+    void setDataPoint(final int index, final DataPointValueType type, Object value) {
+        final XLinkDataPoint dp = new XLinkDataPoint(index, type);
+        dp.setValue(value);
+        Log.d(TAG, "setDataPoint: " + dp);
+
+        XLinkSetDataPointTask task = XLinkSetDataPointTask.newBuilder()
+                .setXDevice(mDevice.getXDevice())
+                .setDataPoints(Collections.singletonList(dp))
+                .setListener(new XLinkTaskListener<XDevice>() {
+                    @Override
+                    public void onError(XLinkErrorCode xLinkErrorCode) {
+                        Log.d(TAG, "onError() called with: xLinkErrorCode = [" + xLinkErrorCode + "]" + " + " + dp);
+
+                    }
+
+                    @Override
+                    public void onStart() {
+                    }
+
+                    @Override
+                    public void onComplete(XDevice xDevice) {
+                        Log.d(TAG, "onComplete() called with: = [" + dp + "]");
+//                        mDevice.setDataPointByIndex(dp);
+//                        EventBus.getDefault().post(new DataPointUpdateEvent());
+                    }
+                })
+                .build();
+        XLinkSDK.startTask(task);
     }
 
 

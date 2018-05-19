@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_46"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+
+        >
 
         <Button
             android:id="@+id/btn_main_family"
@@ -22,7 +24,8 @@
             android:layout_weight="1"
             android:background="@color/colorWhite"
             android:drawableTop="@drawable/main_family_selected"
-            android:padding="@dimen/common_6"
+            android:paddingBottom="@dimen/common_4"
+            android:paddingTop="@dimen/common_8"
             android:text="家庭"
             android:textSize="@dimen/text_10" />
 
@@ -34,7 +37,8 @@
             android:layout_weight="1"
             android:background="@color/colorWhite"
             android:drawableTop="@drawable/main_home_selected"
-            android:padding="@dimen/common_6"
+            android:paddingBottom="@dimen/common_4"
+            android:paddingTop="@dimen/common_8"
             android:text="场景"
             android:textSize="@dimen/text_10" />
 
@@ -46,15 +50,24 @@
             android:layout_weight="1"
             android:background="@color/colorWhite"
             android:drawableTop="@drawable/main_me_selected"
-            android:padding="@dimen/common_6"
+            android:paddingBottom="@dimen/common_4"
+            android:paddingTop="@dimen/common_8"
             android:text="我的"
             android:textSize="@dimen/text_10" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/index_bg"
+        android:layout_above="@id/lin_bottom_menu"
+        />
 
     <FrameLayout
         android:id="@+id/relative_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/lin_bottom_menu" />
+        android:layout_above="@id/view_line" />
 
 </RelativeLayout>
