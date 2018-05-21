@@ -103,6 +103,47 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_seepage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_54"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/linearlayout_click_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/common_14"
+            android:text="拖地水量"
+            android:textColor="@color/color_33"
+            android:textSize="@dimen/text_14" />
+
+
+        <ImageView
+            android:id="@+id/img_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_14"
+            android:background="@mipmap/right" />
+
+        <TextView
+            android:id="@+id/text_seepage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/common_14"
+            android:layout_toLeftOf="@id/img_a"
+            android:textColor="@color/color_99"
+            android:textSize="@dimen/text_14" />
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:id="@+id/relative_position_sweeper"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_54"

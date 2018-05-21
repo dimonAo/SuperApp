@@ -89,6 +89,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     private TextView text_battery;
 
     private LinearLayout lin_detail;
+    private LinearLayout lin_up;
 
     private List<Button> mModeButton = new ArrayList<>();
     private List<Button> mStrongButton = new ArrayList<>();
@@ -97,11 +98,11 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     private Device mDevice;
     private ButtonTouchListener mButtonTouchListener;
 
-    private Dialog mOnLineStateDialog;
+//    private Dialog mOnLineStateDialog;
 
     @Override
     public void initToolBar(Toolbar toolbar) {
-        setTitleToolbarStyle(SOLID_COLOR_TITLE, R.color.colorSweeperText);
+        setTitleToolbarStyle(SOLID_COLOR_TITLE, R.color.transparent);
 
         text_tool_bar_title.setText("扫地机器人");
         text_tool_bar_title.setTextColor(ContextCompat.getColor(this, R.color.colorWhite));
@@ -121,7 +122,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onCreateView(Bundle saveInstanceState) {
         mButtonTouchListener = new ButtonTouchListener();
-        mOnLineStateDialog = new Dialog(this, R.style.MyCommonDialog);
+//        mOnLineStateDialog = new Dialog(this, R.style.MyCommonDialog);
         initView();
 
     }
@@ -175,7 +176,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
         clear_state = (TextView) findViewById(R.id.clear_state);
         text_battery = (TextView) findViewById(R.id.text_battery);
         lin_detail = (LinearLayout) findViewById(R.id.lin_detail);
-
+        lin_up = (LinearLayout) findViewById(R.id.lin_up);
         addData();
 
         String mac = getTargetDeviceMacAddress();
@@ -577,7 +578,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
             if (i == position) {
                 mModeButton.get(i).setSelected(true);
                 mModeButton.get(i).setEnabled(false);
-                mModeButton.get(i).setTextColor(ContextCompat.getColor(this, R.color.colorSweeperText));
+                mModeButton.get(i).setTextColor(ContextCompat.getColor(this, R.color.blue_btn_end_color));
 //                text_mode.setText(mModeButton.get(i).getText() + "模式");
                 text_mode.setText(String.format("%s", mModeButton.get(i).getText()));
             } else {
@@ -601,7 +602,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
         for (int i = 0; i < mStrongButton.size(); i++) {
             if (i == position) {
                 mStrongButton.get(i).setSelected(true);
-                mStrongButton.get(i).setTextColor(ContextCompat.getColor(this, R.color.colorSweeperText));
+                mStrongButton.get(i).setTextColor(ContextCompat.getColor(this, R.color.blue_btn_end_color));
             } else {
                 mStrongButton.get(i).setSelected(false);
                 mStrongButton.get(i).setTextColor(ContextCompat.getColor(this, R.color.colorSweeperTextUnselected));
@@ -645,7 +646,8 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         if (XDevice.State.CONNECTED != mDevice.getXDevice().getCloudConnectionState()) {
 //            showSnackBarLong("设备未连接");
-            DialogUtils.showWifiStateDialog(SweeperActivity.this, mOnLineStateDialog, getString(R.string.wifi_off_line));
+//            DialogUtils.showWifiStateDialog(SweeperActivity.this, mOnLineStateDialog, getString(R.string.wifi_off_line));
+            lin_up.setVisibility(View.VISIBLE);
             return;
         }
 
@@ -702,8 +704,8 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 //                setDataPoint(1, DataPointValueType.BYTE, (byte) 5);
                 break;
             case R.id.btn_recharge:
-                if (((byte) 6 == ((Byte) mDevice.getDataPoints().get(0).getValue() & 0xff))
-                        || ((byte) 7 == (((Byte) mDevice.getDataPoints().get(0).getValue() & 0xff)))) {
+                if ((6 == (((Byte) mDevice.getDataPoints().get(0).getValue()) & 0xff))
+                        || (7 == ((((Byte) mDevice.getDataPoints().get(0).getValue()) & 0xff)))) {
                     index = 1;
                     value = (byte) 6;
                     updateText(BTN_RECHARGE);
@@ -791,7 +793,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 //                break;
         }
 
-        operationValue = value;
+        operationValue = (Byte) value & 0xff;
         setDataPoint(index, DataPointValueType.BYTE, value);
 
     }
@@ -799,30 +801,30 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
     private boolean isModModel() {
 //        ((Byte) dataPoint.getValue()) & 0xff;
 //        mDevice.getDataPoints().get(5).getValue()
-        if (((byte) 5 == (((Byte) mDevice.getDataPoints().get(1).getValue()) & 0xff))) {
+        if ((5 == (((Byte) mDevice.getDataPoints().get(1).getValue()) & 0xff))) {
             //拖地模式
             showSnackBarLong("拖地模式不能操作风机");
             return true;
         }
-        if (((byte) 1 == (((Byte) mDevice.getDataPoints().get(1).getValue()) & 0xff))) {
+        if (1 == (((Byte) mDevice.getDataPoints().get(1).getValue()) & 0xff)) {
             //空闲模式
             showSnackBarLong("空闲模式不能操作风机");
             return true;
         }
 
-        if ((byte) 6 == (((Byte) mDevice.getDataPoints().get(1).getValue()) & 0xff)) {
+        if (6 == (((Byte) mDevice.getDataPoints().get(1).getValue()) & 0xff)) {
             //回充模式
             showSnackBarLong("回充模式不能操作风机");
             return true;
         }
 
-        if ((byte) 6 == (((Byte) mDevice.getDataPoints().get(0).getValue()) & 0xff)) {
+        if (6 == (((Byte) mDevice.getDataPoints().get(0).getValue()) & 0xff)) {
             //充电
             showSnackBarLong("充电中不能操作风机");
             return true;
         }
 
-        if ((byte) 7 == (((Byte) mDevice.getDataPoints().get(0).getValue()) & 0xff)) {
+        if (7 == (((Byte) mDevice.getDataPoints().get(0).getValue()) & 0xff)) {
             //充电完成
             showSnackBarLong("充电完成状态,不能操作风机");
             return true;
@@ -996,14 +998,16 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
         if (xDevice.equals(mDevice.getXDevice())) {
 
-            if (null == mOnLineStateDialog) {
-                mOnLineStateDialog = new Dialog(this, R.style.MyCommonDialog);
-            }
+//            if (null == mOnLineStateDialog) {
+//                mOnLineStateDialog = new Dialog(this, R.style.MyCommonDialog);
+//            }
 
             if (state == XDevice.State.CONNECTED) {
-                mOnLineStateDialog.dismiss();
+//                mOnLineStateDialog.dismiss();
+                lin_up.setVisibility(View.GONE);
             } else {
-                DialogUtils.showWifiStateDialog(SweeperActivity.this, mOnLineStateDialog, getString(R.string.wifi_off_line));
+//                DialogUtils.showWifiStateDialog(SweeperActivity.this, mOnLineStateDialog, getString(R.string.wifi_off_line));
+                lin_up.setVisibility(View.VISIBLE);
             }
 
         }
@@ -1036,7 +1040,8 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
         public boolean onTouch(View v, MotionEvent event) {
 
             if (XDevice.State.CONNECTED != mDevice.getXDevice().getCloudConnectionState()) {
-                DialogUtils.showWifiStateDialog(SweeperActivity.this, mOnLineStateDialog, getString(R.string.wifi_off_line));
+//                DialogUtils.showWifiStateDialog(SweeperActivity.this, mOnLineStateDialog, getString(R.string.wifi_off_line));
+                lin_up.setVisibility(View.VISIBLE);
                 return true;
             }
 
@@ -1112,7 +1117,7 @@ public class SweeperActivity extends BaseActivity implements View.OnClickListene
 
 
     private boolean operationModel, operationFan, operationSwitch, operationSi;
-    private byte operationValue;
+    private int operationValue;
 
 
     /**

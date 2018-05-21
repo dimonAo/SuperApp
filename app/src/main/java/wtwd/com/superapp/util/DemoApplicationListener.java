@@ -458,12 +458,12 @@ public class DemoApplicationListener implements XLinkDataListener, XLinkUserList
                 Log.e(TAG, "USER_LOGOUT");
 //                XLinkSDK.logoutAndStop();
                 // 清楚demo的用户信息
-                UserManager.getInstance().logout();
-                DeviceManager.getInstance().clear();
-                //跳转登录页面
-                Intent intent1 = new Intent(mContext.get(), LoginActivity.class);
-                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                mContext.get().startActivity(intent1);
+//                UserManager.getInstance().logout();
+//                DeviceManager.getInstance().clear();
+//                //跳转登录页面
+//                Intent intent1 = new Intent(mContext.get(), LoginActivity.class);
+//                intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                mContext.get().startActivity(intent1);
 
                 break;
         }

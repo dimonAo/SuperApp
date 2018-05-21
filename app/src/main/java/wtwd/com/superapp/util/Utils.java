@@ -397,7 +397,7 @@ public class Utils {
         }
         int ret = Integer.parseInt(numHex, 16);
         if ((ret >>> 15) > 0) {
-            ret = -(~ret+1);
+            ret = -(~ret + 1);
         }
 //            else {
 //                System.out.println(ret & 0x7fff);
@@ -457,5 +457,16 @@ public class Utils {
         return flag;
     }
 
+
+    public static String addZeroBeforSingleString(String targetString) {
+        if (TextUtils.isEmpty(targetString)) {
+            return null;
+        }
+
+        if (1 == targetString.length()) {
+            targetString = "0" + targetString;
+        }
+        return targetString;
+    }
 
 }

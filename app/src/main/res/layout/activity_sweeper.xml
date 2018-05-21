@@ -11,454 +11,492 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSweeperText"
-        >
+        android:background="@drawable/shape_main_page_title"
+        android:orientation="vertical">
 
         <include layout="@layout/tool_bar" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorSweeperText"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="状态"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_10"
-
-                />
-
-            <TextView
-                android:id="@+id/clear_state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_6"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_12" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/common_6"
-            android:layout_marginTop="@dimen/common_6"
-            android:background="@color/colorWhite" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="模式"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_10"
-
-                />
-
-            <TextView
-                android:id="@+id/text_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_6"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_12" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/common_6"
-            android:layout_marginTop="@dimen/common_6"
-            android:background="@color/colorWhite" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="电量"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_10"
-
-                />
-
-            <TextView
-                android:id="@+id/text_battery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_6"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_12" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_90"
-        android:layout_marginLeft="@dimen/common_10"
-        android:layout_marginRight="@dimen/common_10"
-        android:layout_marginTop="@dimen/common_10"
-        android:background="@drawable/me_radius_bg"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_6"
-            android:text="模式"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_10" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line_bg" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_planned"
-                style="?android:attr/borderlessButtonStyle"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_planned"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="规划"
-                android:textSize="@dimen/text_10" />
+                android:gravity="center"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="状态"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_10"
 
-            <Button
-                android:id="@+id/btn_fix_point"
-                style="?android:attr/borderlessButtonStyle"
+                    />
+
+                <TextView
+                    android:id="@+id/clear_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_6"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_12" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/common_6"
+                android:layout_marginTop="@dimen/common_6"
+                android:background="@color/colorWhite" />
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_fixed_point"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="定点"
-                android:textSize="@dimen/text_10" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_side"
-                style="?android:attr/borderlessButtonStyle"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="模式"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_10"
+
+                    />
+
+                <TextView
+                    android:id="@+id/text_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_6"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_12" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="1px"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/common_6"
+                android:layout_marginTop="@dimen/common_6"
+                android:background="@color/colorWhite" />
+
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_side"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="沿边"
-                android:textSize="@dimen/text_10" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btn_auto"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_atuo_clear"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="单间"
-                android:textSize="@dimen/text_10" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="电量"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_10"
 
-            <Button
-                android:id="@+id/btn_mop"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_mop"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="拖地"
-                android:textSize="@dimen/text_10" />
+                    />
 
-            <Button
-                android:id="@+id/btn_recharge"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_charge"
-                android:paddingBottom="@dimen/common_12"
-                android:paddingTop="@dimen/common_12"
-                android:text="回充"
-                android:textSize="@dimen/text_10" />
+                <TextView
+                    android:id="@+id/text_battery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_6"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_12" />
 
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_90"
-        android:layout_marginLeft="@dimen/common_10"
-        android:layout_marginRight="@dimen/common_10"
-        android:layout_marginTop="@dimen/common_10"
-        android:background="@drawable/me_radius_bg"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/common_6"
-            android:text="风机吸力"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_10" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line_bg" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btn_close"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_close"
-                android:paddingBottom="@dimen/common_10"
-                android:paddingTop="@dimen/common_10"
-                android:text="关闭"
-                android:textSize="@dimen/text_10" />
-
-            <Button
-                android:id="@+id/btn_standard"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_standard"
-                android:paddingBottom="@dimen/common_10"
-                android:paddingTop="@dimen/common_10"
-                android:text="标准"
-                android:textSize="@dimen/text_10" />
-
-            <Button
-                android:id="@+id/btn_strong"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:drawableTop="@drawable/select_strong"
-                android:paddingBottom="@dimen/common_10"
-                android:paddingTop="@dimen/common_10"
-                android:text="强力"
-                android:textSize="@dimen/text_10" />
-
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/lin_bottom"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common_58"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorWhite"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
 
             <LinearLayout
-                android:id="@+id/lin_detail"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_90"
+                android:layout_marginLeft="@dimen/common_10"
+                android:layout_marginRight="@dimen/common_10"
+                android:layout_marginTop="@dimen/common_10"
+                android:background="@drawable/me_radius_bg"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_margin="@dimen/common_6"
+                    android:text="模式"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_10" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@mipmap/sweeper_work_detail" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line_bg" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="工作详情"
-                        android:textColor="@color/colorBlack"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_planned"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_planned"
+                        android:paddingBottom="@dimen/common_12"
+                        android:paddingTop="@dimen/common_12"
+                        android:text="规划"
                         android:textSize="@dimen/text_10" />
+
+
+                    <Button
+                        android:id="@+id/btn_fix_point"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_fixed_point"
+                        android:paddingBottom="@dimen/common_12"
+                        android:paddingTop="@dimen/common_12"
+                        android:text="定点"
+                        android:textSize="@dimen/text_10" />
+
+                    <Button
+                        android:id="@+id/btn_side"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_side"
+                        android:paddingBottom="@dimen/common_12"
+                        android:paddingTop="@dimen/common_12"
+                        android:text="沿边"
+                        android:textSize="@dimen/text_10" />
+
+                    <Button
+                        android:id="@+id/btn_auto"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_atuo_clear"
+                        android:paddingBottom="@dimen/common_12"
+                        android:paddingTop="@dimen/common_12"
+                        android:text="单间"
+                        android:textSize="@dimen/text_10" />
+
+                    <Button
+                        android:id="@+id/btn_mop"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_mop"
+                        android:paddingBottom="@dimen/common_12"
+                        android:paddingTop="@dimen/common_12"
+                        android:text="拖地"
+                        android:textSize="@dimen/text_10" />
+
+                    <Button
+                        android:id="@+id/btn_recharge"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_charge"
+                        android:paddingBottom="@dimen/common_12"
+                        android:paddingTop="@dimen/common_12"
+                        android:text="回充"
+                        android:textSize="@dimen/text_10" />
+
                 </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_90"
+                android:layout_marginLeft="@dimen/common_10"
+                android:layout_marginRight="@dimen/common_10"
+                android:layout_marginTop="@dimen/common_10"
+                android:background="@drawable/me_radius_bg"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/common_90"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_margin="@dimen/common_6"
+                    android:text="风机吸力"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/text_10" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@mipmap/sweeper_regular_clear" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line_bg" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="定时清扫"
-                        android:textColor="@color/colorBlack"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_close"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_close"
+                        android:paddingBottom="@dimen/common_10"
+                        android:paddingTop="@dimen/common_10"
+                        android:text="关闭"
                         android:textSize="@dimen/text_10" />
+
+                    <Button
+                        android:id="@+id/btn_standard"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_standard"
+                        android:paddingBottom="@dimen/common_10"
+                        android:paddingTop="@dimen/common_10"
+                        android:text="标准"
+                        android:textSize="@dimen/text_10" />
+
+                    <Button
+                        android:id="@+id/btn_strong"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:drawableTop="@drawable/select_strong"
+                        android:paddingBottom="@dimen/common_10"
+                        android:paddingTop="@dimen/common_10"
+                        android:text="强力"
+                        android:textSize="@dimen/text_10" />
+
                 </LinearLayout>
             </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/lin_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_58"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorWhite"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/lin_detail"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@mipmap/sweeper_work_detail" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="工作详情"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_10" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/common_90"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@mipmap/sweeper_regular_clear" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="定时清扫"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/text_10" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@id/lin_bottom"
+                    android:gravity="center">
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/common_150"
+                        android:layout_height="@dimen/common_150"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/shape_circle_white">
+
+                        <LinearLayout
+                            android:id="@+id/img_state"
+                            android:layout_width="@dimen/common_70"
+                            android:layout_height="@dimen/common_70"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/shape_circle_gray"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <Button
+                                android:id="@+id/img_btn_center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_margin="@dimen/common_8"
+                                android:background="@drawable/select_sweeper_state" />
+                        </LinearLayout>
+
+
+                        <Button
+                            android:id="@+id/btn_top"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_above="@id/img_state"
+                            android:layout_alignLeft="@id/img_state"
+                            android:layout_alignRight="@id/img_state"
+                            android:background="@color/transparent"
+                            android:drawableTop="@drawable/select_up"
+                            android:paddingTop="@dimen/common_6"
+                            android:text="向前"
+                            android:textSize="@dimen/text_10" />
+
+                        <Button
+                            android:id="@+id/btn_left"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignBottom="@id/img_state"
+                            android:layout_alignTop="@id/img_state"
+                            android:layout_toLeftOf="@id/img_state"
+                            android:background="@color/transparent"
+                            android:drawableTop="@drawable/select_left"
+                            android:paddingBottom="@dimen/common_10"
+                            android:paddingTop="@dimen/common_16"
+                            android:text="向左"
+                            android:textSize="@dimen/text_10" />
+
+                        <Button
+                            android:id="@+id/btn_right"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignBottom="@id/img_state"
+                            android:layout_alignTop="@id/img_state"
+                            android:layout_toRightOf="@id/img_state"
+                            android:background="@color/transparent"
+                            android:drawableTop="@drawable/select_right"
+                            android:paddingBottom="@dimen/common_10"
+                            android:paddingTop="@dimen/common_16"
+                            android:text="向右"
+                            android:textSize="@dimen/text_10" />
+
+                        <Button
+                            android:id="@+id/btn_down"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_alignLeft="@id/img_state"
+                            android:layout_alignRight="@id/img_state"
+                            android:layout_below="@id/img_state"
+                            android:background="@color/transparent"
+                            android:drawableBottom="@drawable/select_down"
+                            android:paddingBottom="@dimen/common_6"
+                            android:text="向后"
+                            android:textSize="@dimen/text_10" />
+
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lin_up"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/lin_bottom"
+            android:background="@color/alpha_black_5"
+            android:visibility="gone"
             android:gravity="center">
 
-            <RelativeLayout
-                android:layout_width="@dimen/common_150"
-                android:layout_height="@dimen/common_150"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/shape_circle_white">
+            <LinearLayout
+                android:layout_width="@dimen/common_188"
+                android:layout_height="@dimen/common_98"
+                android:alpha="0.7"
+                android:background="@color/colorBlack"
+                android:gravity="center">
 
-                <LinearLayout
-                    android:id="@+id/img_state"
-                    android:layout_width="@dimen/common_70"
-                    android:layout_height="@dimen/common_70"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/shape_circle_gray"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/img_btn_center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="@dimen/common_8"
-                        android:background="@drawable/select_sweeper_state" />
-                </LinearLayout>
-
-
-                <Button
-                    android:id="@+id/btn_top"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@id/img_state"
-                    android:layout_alignLeft="@id/img_state"
-                    android:layout_alignRight="@id/img_state"
-                    android:background="@color/transparent"
-                    android:drawableTop="@drawable/select_up"
-                    android:paddingTop="@dimen/common_6"
-                    android:text="向前"
-                    android:textSize="@dimen/text_10" />
-
-                <Button
-                    android:id="@+id/btn_left"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignBottom="@id/img_state"
-                    android:layout_alignTop="@id/img_state"
-                    android:layout_toLeftOf="@id/img_state"
-                    android:background="@color/transparent"
-                    android:drawableTop="@drawable/select_left"
-                    android:paddingBottom="@dimen/common_10"
-                    android:paddingTop="@dimen/common_16"
-                    android:text="向左"
-                    android:textSize="@dimen/text_10" />
-
-                <Button
-                    android:id="@+id/btn_right"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignBottom="@id/img_state"
-                    android:layout_alignTop="@id/img_state"
-                    android:layout_toRightOf="@id/img_state"
-                    android:background="@color/transparent"
-                    android:drawableTop="@drawable/select_right"
-                    android:paddingBottom="@dimen/common_10"
-                    android:paddingTop="@dimen/common_16"
-                    android:text="向右"
-                    android:textSize="@dimen/text_10" />
-
-                <Button
-                    android:id="@+id/btn_down"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignLeft="@id/img_state"
-                    android:layout_alignRight="@id/img_state"
-                    android:layout_below="@id/img_state"
-                    android:background="@color/transparent"
-                    android:drawableBottom="@drawable/select_down"
-                    android:paddingBottom="@dimen/common_6"
-                    android:text="向后"
-                    android:textSize="@dimen/text_10" />
-
-
-            </RelativeLayout>
+                    android:text="设备已离线,请检查设备\n的WIFI连接是否正常"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/text_14" />
+            </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
 
+
+    </RelativeLayout>
 </LinearLayout>

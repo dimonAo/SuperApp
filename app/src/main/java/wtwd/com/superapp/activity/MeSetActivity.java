@@ -1,5 +1,6 @@
 package wtwd.com.superapp.activity;
 
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,7 +48,13 @@ public class MeSetActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (R.id.btn_login_out == v.getId()) {
-            XLinkSDK.logoutAndStop();
+//            XLinkSDK.logoutAndStop();
+//            readyGo(LoginActivity.class);
+
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+
         }
     }
 }

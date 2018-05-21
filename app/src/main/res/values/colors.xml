@@ -26,6 +26,7 @@
 
     <color name="blue_text">#3e8bf3</color>
     <color name="color_33">#333333</color>
+    <color name="color_33_alpha_60">#99333333</color>
     <color name="color_66">#666666</color>
     <color name="color_99">#999999</color>
 
@@ -43,11 +44,13 @@
     <color name="color_ee">#eeeeee</color>
     <color name="color_e7">#E7E7E7</color>
     <color name="color_f7">#F7F7F7</color>
+    <color name="color_a0">#a0a0a0</color>
 
     <color name="sweep_clear">#acd598</color>
 
     <!--login-->
     <color name="login_blue_text_color">#3f77df</color>
+    <color name="line">#e2e2e2</color>
 
 
 </resources>

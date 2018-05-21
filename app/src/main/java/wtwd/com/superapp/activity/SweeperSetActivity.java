@@ -1,5 +1,6 @@
 package wtwd.com.superapp.activity;
 
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,7 +10,12 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import cn.xlink.sdk.core.model.DataPointValueType;
 import cn.xlink.sdk.v5.listener.XLinkTaskListener;
@@ -23,15 +29,22 @@ import wtwd.com.superapp.R;
 import wtwd.com.superapp.base.BaseActivity;
 import wtwd.com.superapp.entity.Device;
 import wtwd.com.superapp.manager.DeviceManager;
+import wtwd.com.superapp.util.DialogUtils;
 
 public class SweeperSetActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "SweeperSetActivity";
 
+    private TextView text_seepage;
     private TextView text_device_id;
     private Button btn_delete_device;
     private Device mDevice;
     private RelativeLayout relative_position_sweeper;
+    private RelativeLayout relative_appointment_clean;
+    private RelativeLayout relative_seepage;
+
+    private String[] sweepSeepageLevel;
+    private Dialog mDialog;
 
     @Override
     public void initToolBar(Toolbar toolbar) {
@@ -46,12 +59,15 @@ public class SweeperSetActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onCreateView(Bundle saveInstanceState) {
+        sweepSeepageLevel = getResources().getStringArray(R.array.seepage_level);
+        mDialog = new Dialog(this, R.style.TextDialog);
         setTitleToolbarStyle(SOLID_COLOR_TITLE, R.color.colorWhite);
         text_device_id = (TextView) findViewById(R.id.text_device_id);
         btn_delete_device = (Button) findViewById(R.id.btn_delete_device);
-
+        text_seepage = (TextView) findViewById(R.id.text_seepage);
         relative_position_sweeper = (RelativeLayout) findViewById(R.id.relative_position_sweeper);
-
+        relative_appointment_clean = (RelativeLayout) findViewById(R.id.relative_appointment_clean);
+        relative_seepage = (RelativeLayout) findViewById(R.id.relative_seepage);
         addListener();
 
         String mac = getTargetDeviceMacAddress();
@@ -81,6 +97,8 @@ public class SweeperSetActivity extends BaseActivity implements View.OnClickList
     private void addListener() {
         btn_delete_device.setOnClickListener(this);
         relative_position_sweeper.setOnClickListener(this);
+        relative_appointment_clean.setOnClickListener(this);
+        relative_seepage.setOnClickListener(this);
     }
 
 
@@ -96,6 +114,25 @@ public class SweeperSetActivity extends BaseActivity implements View.OnClickList
         } else if (R.id.relative_position_sweeper == v.getId()) {
             //寻找扫地机
             setDataPoint(9, DataPointValueType.BYTE, (byte) 1);
+        } else if (R.id.relative_appointment_clean == v.getId()) {
+            readyGo(AppointCleanActivity.class);
+        } else if (R.id.relative_seepage == v.getId()) {
+
+            final List<String> mList = new ArrayList<>();
+            mList.addAll(Arrays.asList(sweepSeepageLevel));
+
+            DialogUtils.showSeepageDialog(SweeperSetActivity.this, mDialog, mList, new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    text_seepage.setText(mList.get(position));
+
+                    int index = 7;
+                    byte value = (byte) (position + 1);
+                    setDataPoint(index, DataPointValueType.BYTE, value);
+                    mDialog.dismiss();
+                }
+            });
+
         }
     }
 
